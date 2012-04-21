@@ -37,6 +37,9 @@ Level: class {
     engine: Engine
     date := GameDate new()
 
+    name := "<no name>"
+    welcomeMessage := "level started!"
+
     // something used to display the world and manipulate it
     ui: MainUI
 
@@ -53,6 +56,11 @@ Level: class {
         // single-player mode
         mainPlayer = Player new("Gob")
         players add(mainPlayer)
+    }
+
+    setup: func {
+        ui levelTitle setText(name)
+        ui flash(welcomeMessage)
     }
 
     ticks: Long = 0

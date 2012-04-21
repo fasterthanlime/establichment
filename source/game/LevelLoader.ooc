@@ -19,10 +19,8 @@ LevelLoader: class extends Loader {
         json := readJSON(path)
 
         level := Level new(engine)
-
-        ifContains?(json, "welcomeMessage", String, |msg|
-            logger info("Level says: %s" format(msg))
-        )
+        level name = json get("name", String)
+        level welcomeMessage = json get("welcomeMessage", String)
 
         level
     }

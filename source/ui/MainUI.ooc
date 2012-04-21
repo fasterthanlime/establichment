@@ -4,7 +4,7 @@ use gobject, cairo, sdl, deadlogger, ldkit
 
 // game deps
 import ldkit/[Display, Input, Math, Sprites]
-import Pass
+import Pass, FlashMessages
 
 // libs deps
 import deadlogger/Log
@@ -51,8 +51,11 @@ MainUI: class {
     statusPass := Pass new(this, "status") // various info
     levelTitle: LabelSprite
 
+    flashMessages: FlashMessages
+
     initPasses: func {
-        // TODO: setup bg pass & status pass
+        flashMessages = FlashMessages new(this)
+
         bgPass addSprite(Sprite new(vec2(40, 80)))
 
         levelTitle = LabelSprite new(vec2(30, 30), "<level name>")
@@ -63,6 +66,8 @@ MainUI: class {
     }
     
     reset: func {
+        flashMessages reset()
+
         rootPass reset()
 
         // nothing to reset
@@ -80,7 +85,13 @@ MainUI: class {
         rootPass addPass(statusPass)
     }
 
+    flash: func (msg: String) {
+        flashMessages push(msg)
+    }
+
     update: func {
+        flashMessages update()
+
         display clear()
         rootPass draw()
         display blit()

@@ -47,6 +47,7 @@ Engine: class {
 
         loader := LevelLoader new(this)
         level = loader load(levelName)
+        level setup()
     }
 
 }
