@@ -25,4 +25,17 @@ Woops, it's not the SDL version I thought it was. That's better. I actually have
 Sat Apr 21 20:51:10 CEST 2012
 
 Separation is done, lib is here! https://github.com/nddrylliog/ldkit
+It's now time to code the basic structure of the game. We have to make a few gameplay decisions here. I like to start with a small prototype and work from there,
+so we'll have to find a few basic interactions that still make an interesting game.
+
+So you are the all-encompassing force: I'll code a single-player game for now, and see about adding bots before the deadline, and maybe true multi-player later,
+but that's asking for trouble :)
+
+So for now, you have a few "real estate agencies", and each of them own some property. You can adjust the price of the rents, and see where people go. Obviously
+most people will go for the cheapest rents. Not all citizens are created equal, though: some of them have a better income, or just different spending priorities.
+
+Let's try to modelize that correctly.
+
+
+
 
