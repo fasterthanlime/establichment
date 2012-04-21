@@ -18,9 +18,13 @@ LevelLoader: class extends Loader {
         path := "assets/levels/%s.json" format(levelName)
         json := readJSON(path)
 
+        level := Level new(engine)
+
         ifContains?(json, "welcomeMessage", String, |msg|
             logger info("Level says: %s" format(msg))
         )
+
+        level
     }
 
 }

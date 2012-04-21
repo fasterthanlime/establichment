@@ -45,10 +45,32 @@ I've shown a few ooc tricks: the compiler tries to find function definitions for
 Not proud of everything in this compiler, but it shows that it's not that hard to work around.
 
 
-
 =========================
 
 Sat Apr 21 22:02:57 CEST 2012
 
 Hooray, it compiles!
+
+
+=========================
+
+Sat Apr 21 22:05:00 CEST 2012
+
+Was kind of expecting a segfault here, lots of code added. Will debug now, brace yourselves!
+Note that the SDL window stays, because gdb did break on the segfault
+By default we have no line info, but.. that's what the -g flag is for.
+Let's clean with -x first.
+
+So apparently we're trying to update a null level. Yay!
+Having the line numbers in .ooc is pretty neat.
+
+
+=========================
+
+Sat Apr 21 22:08:15 CEST 2012
+
+Splendid, it runs! Not much is happening now :) We'll try adding a few types of sprites,
+but first let's catch the 'exit' event, because right now clicking on close, or killing
+the window is not gonna work. That's one of the peculiarities of SDL.
+
 

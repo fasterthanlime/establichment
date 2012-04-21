@@ -1,5 +1,6 @@
 # Ignore binary file
 establichment
 
-# Ignore .libs files
+# Ignore .libs files and rock_tmp (output of the compiler)
 .libs
+rock_tmp
