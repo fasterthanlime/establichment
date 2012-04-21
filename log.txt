@@ -82,5 +82,6 @@ So apparently events are not correctly relayed. Let's investigate that. I think 
 because poll is not called!
 
 Much better :) With debug enabled we have some info about what's going on. Let's display text!
+(Fun, it segfaults whenever pressing a key. Something's definitely wrong, hehe)
 
 
