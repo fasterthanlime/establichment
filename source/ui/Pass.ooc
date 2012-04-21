@@ -1,6 +1,7 @@
 
 // libs deps
 import ldkit/[Sprites, Display]
+import deadlogger/Log
 
 // game deps
 import structs/[ArrayList]
@@ -15,6 +16,8 @@ Pass: class {
 
     passes := ArrayList<This> new()
     sprites := ArrayList<Sprite> new()
+
+    logger := static Log getLogger(This name)
 
     /*
      * Constructor

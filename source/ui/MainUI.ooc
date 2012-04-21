@@ -3,7 +3,7 @@
 use gobject, cairo, sdl, deadlogger, ldkit
 
 // game deps
-import ldkit/[Display, Input]
+import ldkit/[Display, Input, Math, Sprites]
 import Pass
 
 // libs deps
@@ -50,6 +50,7 @@ MainUI: class {
 
     initPasses: func {
         // TODO: setup bg pass & status pass
+        bgPass addSprite(Sprite new(vec2(40, 40)))
 
         reset()
     }
@@ -74,7 +75,10 @@ MainUI: class {
     }
 
     update: func {
+        display clear()
         rootPass draw()
+        display blit()
+
         input _poll()
     }
 

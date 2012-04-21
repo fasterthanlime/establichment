@@ -85,3 +85,11 @@ Much better :) With debug enabled we have some info about what's going on. Let's
 (Fun, it segfaults whenever pressing a key. Something's definitely wrong, hehe)
 
 
+=========================
+
+Sat Apr 21 22:32:15 CEST 2012
+
+Was not correctly clearing and blitting the screen using SDL + Cairo, now we can get events
+and display stuff. Yay!
+
+
