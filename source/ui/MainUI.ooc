@@ -1,9 +1,9 @@
 
 
-use gobject, cairo, sdl, deadlogger
+use gobject, cairo, sdl, deadlogger, ldkit
 
 // game deps
-import ui/Display
+import ld/[Display, Input]
 
 // libs deps
 import deadlogger/Log
@@ -17,6 +17,9 @@ MainUI: class {
     // something we can draw on using Cairo
     display: Display
 
+    // something we can read events from
+    input: Input
+
     init: func (config: ZombieConfig) {
         // note: all config entries are String, so we just have to cheat a bit ;)
         width  := config["screenWidth"]  toInt()
@@ -25,6 +28,8 @@ MainUI: class {
         title := config["title"]
 
         display = Display new(width, height, fullScreen, title)
+
+        input = Input new()
     }
 
 }
