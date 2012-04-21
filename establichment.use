@@ -1,0 +1,4 @@
+Name: establichment
+Description: game in ooc for Ludum Dare 23
+SourcePath: source
+Main: establichment.ooc

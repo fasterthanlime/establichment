@@ -1,0 +1,5 @@
+# Ignore binary file
+establichment
+
+# Ignore .libs files
+.libs
