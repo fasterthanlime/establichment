@@ -62,7 +62,7 @@ Level: class {
             ticks = 0
             date update()
         
-            citizens each (|c| c update())
+            citizens each (|c| c update(date))
             players each (|p| p update(date))
         }
     }

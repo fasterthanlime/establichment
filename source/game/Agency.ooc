@@ -27,7 +27,9 @@ Agency: class {
     collectRents: func {
         for(p in properties) {
             match p {
-                // case r: Rentable => {}
+                case r: Rentable => {
+                    cash += r collect()
+                }
             }
         }
     }

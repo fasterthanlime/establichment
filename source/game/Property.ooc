@@ -1,5 +1,9 @@
 
+// libs deps
+import structs/ArrayList
 
+// game deps
+import Citizen
 
 Property: abstract class {
 
@@ -8,8 +12,23 @@ Property: abstract class {
 Rentable: class extends Property {
 
     rent: Int
+    places: Int
 
-    init: func (=rent) {}
+    tenants := ArrayList<Citizen> new()
+
+    init: func (=rent, =places) {
+        
+    }
+
+    collect: func -> Int {
+        total := 0
+
+        tenants each (|t|
+            total += t withdrawMoney(rent)
+        )
+
+        total
+    }
 
 }
 
