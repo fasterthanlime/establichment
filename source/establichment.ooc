@@ -1,6 +1,6 @@
 
 // game deps
-import ui/MainUI
+import game/Engine
 
 // libs deps
 use zombieconfig, deadlogger
@@ -24,12 +24,12 @@ main: func (argc: Int, argv: CString*) {
         base("fullScreen", "false")
         base("screenWidth", "1024")
         base("screenHeight", "768")
-        base("startLevel", "level1")
+        base("startLevel", "tutorial")
     )
 
     logger info("configuration loaded from %s" format(configPath))
     
-    ui := MainUI new(config)
+    Engine new(config)
 }
 
 

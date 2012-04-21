@@ -37,5 +37,18 @@ most people will go for the cheapest rents. Not all citizens are created equal, 
 Let's try to modelize that correctly.
 
 
+=========================
 
+Sat Apr 21 21:58:08 CEST 2012
+
+I've shown a few ooc tricks: the compiler tries to find function definitions for you, and since I was stuck on a missing import, I had to use --allerrors.
+Not proud of everything in this compiler, but it shows that it's not that hard to work around.
+
+
+
+=========================
+
+Sat Apr 21 22:02:57 CEST 2012
+
+Hooray, it compiles!
 
