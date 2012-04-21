@@ -1,0 +1,1 @@
+To viewers: I'm borrowing code from my LD 22 entry, 'alone'. But I'm trying to learn from my mistakes. This time, I'm separating Display from MainUI. The UI system will be abstract, and will only use SDL under the hood
