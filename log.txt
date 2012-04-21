@@ -19,3 +19,10 @@ Sat Apr 21 20:25:23 CEST 2012
 Turns out I have done quite a lot of ooc bindings in my time :) or at least forked/improved on others (@fredreichbier, @eagle2com, others I forget here, sorry!)
 Woops, it's not the SDL version I thought it was. That's better. I actually have push access to eagle2com's repo.
 
+
+=========================
+
+Sat Apr 21 20:51:10 CEST 2012
+
+Separation is done, lib is here! https://github.com/nddrylliog/ldkit
+

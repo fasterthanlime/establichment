@@ -12,8 +12,12 @@ You need the latest rock:
 
 Put these in your `OOC_LIBS`:
 
+  * <https://github.com/nddrylliog/ldkit>
   * <https://github.com/nddrylliog/zombieconfig>
   * <https://github.com/fredreichbier/deadlogger>
+  * <https://github.com/nddrylliog/ooc-gobject>
+  * <https://github.com/eagle2com/ooc-sdl>
+  * <https://github.com/nddrylliog/ooc-cairo>
 
 ## How to build
 
