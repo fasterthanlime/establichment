@@ -36,6 +36,7 @@ MainUI: class {
         input = Input new()
 
         initPasses()
+        initEvents()
     }
 
     // different UI passes
@@ -72,8 +73,19 @@ MainUI: class {
         rootPass addPass(statusPass)
     }
 
-    redraw: func {
+    update: func {
         rootPass draw()
+        input _poll()
+    }
+
+    initEvents: func {
+        // it's a better practice to turn on debug locally
+        input debug = true
+
+        input onExit(||
+            // just exit bluntly. Let's rely on the OS to free all the resources :D
+            exit(0)
+        )
     }
 
 }

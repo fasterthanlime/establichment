@@ -74,3 +74,13 @@ but first let's catch the 'exit' event, because right now clicking on close, or 
 the window is not gonna work. That's one of the peculiarities of SDL.
 
 
+=========================
+
+Sat Apr 21 22:16:10 CEST 2012
+
+So apparently events are not correctly relayed. Let's investigate that. I think it's just
+because poll is not called!
+
+Much better :) With debug enabled we have some info about what's going on. Let's display text!
+
+

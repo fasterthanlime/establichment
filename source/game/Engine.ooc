@@ -19,6 +19,7 @@ Engine: class {
 
     init: func(config: ZombieConfig) {
         ui = MainUI new(config)
+
         load(config["startLevel"])
 
         ticks: Int
@@ -29,7 +30,7 @@ Engine: class {
             ticks = LTime getTicks()
 
             level update()
-            ui redraw()
+            ui update()
 
             // teleport ourselves in the future when the next frame is due
             roadToFuture := ticks + delta - LTime getTicks()
