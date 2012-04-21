@@ -56,7 +56,9 @@ MainUI: class {
     initPasses: func {
         flashMessages = FlashMessages new(this)
 
-        bgPass addSprite(Sprite new(vec2(40, 80)))
+        // temp code, no real art :'(
+        bgPos := vec2(display getWidth() - 1920, display getHeight() - 1080)
+        bgPass addSprite(ImageSprite new(bgPos, "assets/png/background-placeholder.png"))
 
         levelTitle = LabelSprite new(vec2(30, 30), "<level name>")
         levelTitle color set!(1.0, 1.0, 1.0)

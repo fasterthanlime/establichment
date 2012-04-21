@@ -17,7 +17,7 @@ FlashMessages: class {
 
     init: func (=ui) {
         labelSprite = LabelSprite new(ui display getCenter(), "")
-        labelSprite color set!(0.8, 0.9, 0.8)
+        labelSprite color set!(0.9, 0.9, 0.5)
         labelSprite fontSize = 30.0
         labelSprite centered = true
         counter = messageLength
