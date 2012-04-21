@@ -5,13 +5,15 @@ import deadlogger/Log
 import math/Random
 
 // game deps
-import Player, Property, Level, Citizen
+import Player, Property, Level, Citizen, Dataset
 
 Agency: class {
 
     logger := static Log getLogger(This name)
 
     cash: Int
+    cashHistory := Dataset new()
+
     player: Player
 
     name: String
@@ -35,6 +37,8 @@ Agency: class {
            collectRents() 
             logger info("Agency %s now has %d in cash." format(name, cash))
         } 
+
+        cashHistory add(date, cash)
     }
 
     collectRents: func {

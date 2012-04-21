@@ -2,7 +2,7 @@
 // game deps
 import ui/MainUI
 import game/Engine
-import game/[Player, Agency, Citizen]
+import game/[Player, Agency, Citizen, Dataset]
 
 // libs deps
 import structs/[ArrayList]
@@ -25,6 +25,18 @@ GameDate: class {
         if (isMonth?()) {
             logger info("Day %d" format(day))
         }
+    }
+
+    before?: func (other: This) -> Bool {
+        day < other day
+    }
+
+    after?: func (other: This) -> Bool {
+        day > other day
+    }
+
+    set: func (other: This) {
+        day = other day
     }
 
     isMonth?: func -> Bool {
@@ -66,6 +78,7 @@ Level: class {
 
     // citizens make their own decision on how to spend their money
     citizens := ArrayList<Citizen> new()
+    citizenHistory := Dataset new()
 
     init: func (=engine) {
         ui = engine ui 
@@ -118,6 +131,9 @@ Level: class {
         
             citizens each (|c| c update(date))
             players each (|p| p update(date))
+        
+            // TODO: make citizen die and breed
+            citizenHistory add(date, citizens size) 
         }
     }
 

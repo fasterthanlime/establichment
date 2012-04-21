@@ -3,13 +3,12 @@
 import structs/ArrayList
 
 // game deps
-import Agency, Level
+import Agency, Level, Dataset
 
 Player: class {
 
     name: String
-
-    cash: Int
+    cashHistory := Dataset new()
 
     agencies := ArrayList<Agency> new()
 
@@ -22,6 +21,8 @@ Player: class {
 
     update: func (date: GameDate) {
         agencies each(|a| a update(date))
+
+        cashHistory add(date, getCash())
     }
 
     getCash: func -> Int {
