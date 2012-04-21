@@ -97,6 +97,7 @@ and display stuff. Yay!
 Sat Apr 21 23:13:52 CEST 2012
 
 Apparently fonts are not loaded correctly, let's try to debug that.
+... well, that was easy :)
 
 
 

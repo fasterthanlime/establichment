@@ -77,7 +77,6 @@ MainUI: class {
         rootPass addPass(hudPass)
 
         // status is just a few text fields, no need to recreate
-        statusPass reset()
         rootPass addPass(statusPass)
     }
 
