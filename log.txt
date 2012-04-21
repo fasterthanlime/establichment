@@ -7,3 +7,15 @@ To viewers: I'm borrowing code from my LD 22 entry, 'alone'. But I'm trying to l
 
 =========================
 
+Sat Apr 21 20:22:35 CEST 2012
+
+I've decided to abstract display and input into a separate library, since I like the 'Input' class from my LD22 entry but I feel bad to just copy/paste it into my new one :) You'll see how easy it is to make a new ooc library.
+
+
+=========================
+
+Sat Apr 21 20:25:23 CEST 2012
+
+Turns out I have done quite a lot of ooc bindings in my time :) or at least forked/improved on others (@fredreichbier, @eagle2com, others I forget here, sorry!)
+Woops, it's not the SDL version I thought it was. That's better. I actually have push access to eagle2com's repo.
+

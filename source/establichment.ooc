@@ -1,4 +1,7 @@
 
+// game deps
+import ui/MainUI
+
 // libs deps
 use zombieconfig, deadlogger
 import zombieconfig
@@ -17,6 +20,7 @@ main: func (argc: Int, argv: CString*) {
     // load config
     configPath := "config/establichment.config"
     config := ZombieConfig new(configPath, |base|
+        base("title", "establichment")
         base("fullScreen", "false")
         base("screenWidth", "1024")
         base("screenHeight", "768")
@@ -25,6 +29,7 @@ main: func (argc: Int, argv: CString*) {
 
     logger info("configuration loaded from %s" format(configPath))
     
+    ui := MainUI new(config)
 }
 
 
