@@ -7,9 +7,10 @@ import game/[Player, Agency, Citizen]
 // libs deps
 import structs/[ArrayList]
 import deadlogger/Log
+import math/Random
 
 /**
- * A tiny, tiny world in itself: Switzerland :)
+ * Controls how the game unfolds.
  */
 
 GameDate: class {
@@ -20,8 +21,10 @@ GameDate: class {
     
     update: func {
         day += 1
-
-        logger info("Day %d" format(day))
+    
+        if (isMonth?()) {
+            logger info("Day %d" format(day))
+        }
     }
 
     isMonth?: func -> Bool {
@@ -30,6 +33,20 @@ GameDate: class {
     }
 
 }
+
+withProbability: func (proba: Float, cb: Func) {
+    precision := 1000
+    v1 := Random randRange(0, precision)
+    v2 := (proba * precision) as Int
+
+    if (v1 < v2) {
+        cb()
+    }
+}
+
+/**
+ * A tiny, tiny world in itself: Switzerland :)
+ */
 
 Level: class {
 
@@ -53,9 +70,36 @@ Level: class {
     init: func (=engine) {
         ui = engine ui 
 
-        // single-player mode
+        // single-player mode: test code
         mainPlayer = Player new("Gob")
         players add(mainPlayer)
+
+        spawnCitizens()
+    }
+
+    spawnCitizens: func {
+        // test code
+        dummyIncome := 3000
+
+        for (i in 0..100) {
+            c := Citizen new(dummyIncome)
+            citizens add(c)
+
+            withProbability(0.2, ||
+                logger debug("Finding shelter...")
+                findShelter(c)
+            )
+        }
+
+        logger info("Added %d citizens." format(citizens size))
+    }
+
+    findShelter: func (c: Citizen) {
+        // fair way to distribute citizen in shelters
+        // test code
+        player := Random choice(players)
+        agency := Random choice(player agencies)
+        agency findShelter(c)
     }
 
     setup: func {
@@ -64,7 +108,7 @@ Level: class {
     }
 
     ticks: Long = 0
-    DAY_LENGTH := 10
+    DAY_LENGTH := 2
 
     update: func {
         ticks += 1

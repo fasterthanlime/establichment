@@ -12,17 +12,20 @@ Citizen: class {
     id: Int
     idSeed := static 1
 
-    level: Level
-
     income: Int
     cash := 0
     
-    init: func (=level, =income) {
+    init: func (=income) {
         id = idSeed
         idSeed += 1
+
+        cash = 3000
     }
 
     update: func (date: GameDate) {
+        // collect salary
+        cash += income
+
         // spend money
 
         // contract loans
