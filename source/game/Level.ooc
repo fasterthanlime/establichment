@@ -12,10 +12,30 @@ import deadlogger/Log
  * A tiny, tiny world in itself: Switzerland :)
  */
 
+GameDate: class {
+
+    day := 0
+
+    logger := static Log getLogger(This name)
+    
+    update: func {
+        day += 1
+
+        logger info("Day %d" format(day))
+    }
+
+    isMonth?: func -> Bool {
+        // it's a game, simplifications :D
+        day % 30 == 0
+    }
+
+}
+
 Level: class {
 
     logger := static Log getLogger(This name)
     engine: Engine
+    date := GameDate new()
 
     // something used to display the world and manipulate it
     ui: MainUI
@@ -33,8 +53,18 @@ Level: class {
         players add(Player new("Gob"))
     }
 
+    ticks: Long = 0
+    DAY_LENGTH := 10
+
     update: func {
-        citizens each (|c| c update())
+        ticks += 1
+        if (ticks >= DAY_LENGTH) {
+            ticks = 0
+            date update()
+        
+            citizens each (|c| c update())
+            players each (|p| p update(date))
+        }
     }
 
-}
+} 
