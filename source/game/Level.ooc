@@ -41,6 +41,7 @@ Level: class {
     ui: MainUI
 
     // each player controls a part of the world
+    mainPlayer: Player
     players := ArrayList<Player> new()
 
     // citizens make their own decision on how to spend their money
@@ -50,7 +51,8 @@ Level: class {
         ui = engine ui 
 
         // single-player mode
-        players add(Player new("Gob"))
+        mainPlayer = Player new("Gob")
+        players add(mainPlayer)
     }
 
     ticks: Long = 0

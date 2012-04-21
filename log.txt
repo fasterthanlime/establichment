@@ -92,4 +92,11 @@ Sat Apr 21 22:32:15 CEST 2012
 Was not correctly clearing and blitting the screen using SDL + Cairo, now we can get events
 and display stuff. Yay!
 
+=========================
+
+Sat Apr 21 23:13:52 CEST 2012
+
+Apparently fonts are not loaded correctly, let's try to debug that.
+
+
 

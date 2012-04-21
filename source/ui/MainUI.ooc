@@ -46,11 +46,18 @@ MainUI: class {
     bgPass := Pass new(this, "bg") // clear
     levelPass := Pass new(this, "level") // level terrain etc.
     hudPass := Pass new(this, "hud")  // human interface (windows/dialogs etc.)
+
+    // status sprites
     statusPass := Pass new(this, "status") // various info
+    levelTitle: LabelSprite
 
     initPasses: func {
         // TODO: setup bg pass & status pass
-        bgPass addSprite(Sprite new(vec2(40, 40)))
+        bgPass addSprite(Sprite new(vec2(40, 80)))
+
+        levelTitle = LabelSprite new(vec2(30, 30), "<level name>")
+        levelTitle color set!(1.0, 1.0, 1.0)
+        statusPass addSprite(levelTitle)
 
         reset()
     }

@@ -18,6 +18,7 @@ Put these in your `OOC_LIBS`:
   * <https://github.com/nddrylliog/ooc-gobject>
   * <https://github.com/eagle2com/ooc-sdl>
   * <https://github.com/nddrylliog/ooc-cairo>
+  * <https://github.com/nddrylliog/ooc-freetype2>
 
 ## How to build
 
