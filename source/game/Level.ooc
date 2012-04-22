@@ -2,7 +2,7 @@
 // game deps
 import ui/MainUI
 import game/Engine
-import game/[Player, Agency, Citizen, Dataset]
+import game/[Player, Agency, Citizen, Dataset, Terrain]
 
 // libs deps
 import structs/[ArrayList]
@@ -66,6 +66,8 @@ Level: class {
     engine: Engine
     date := GameDate new()
 
+    terrain: Terrain
+
     name := "<no name>"
     welcomeMessage := "level started!"
 
@@ -80,8 +82,12 @@ Level: class {
     citizens := ArrayList<Citizen> new()
     citizenHistory := Dataset new()
 
+    terrain: Terrain
+
     init: func (=engine) {
         ui = engine ui 
+    
+        terrain = Terrain new(ui)
 
         // single-player mode: test code
         mainPlayer = Player new("Gob")
@@ -93,15 +99,9 @@ Level: class {
     spawnCitizens: func {
         // test code
         dummyIncome := 3000
-
-        for (i in 0..100) {
+        for (i in 0..1) {
             c := Citizen new(dummyIncome)
             citizens add(c)
-
-            withProbability(0.2, ||
-                logger debug("Finding shelter...")
-                findShelter(c)
-            )
         }
 
         logger info("Added %d citizens." format(citizens size))
@@ -138,3 +138,7 @@ Level: class {
     }
 
 } 
+
+
+
+

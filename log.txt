@@ -100,4 +100,12 @@ Apparently fonts are not loaded correctly, let's try to debug that.
 ... well, that was easy :)
 
 
+=========================
+
+Sun Apr 22 17:33:11 CEST 2012
+
+Decided to change the type of the game from simulation based on long-term decisions to... a tower
+defense! Watch out :D
+
+
 

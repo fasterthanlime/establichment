@@ -1,9 +1,10 @@
 
 // libs deps
 import deadlogger/Log
+import ldkit/[Math, Sprites]
 
 // game deps
-import Level
+import Level, ui/Graphics
 
 Citizen: class {
 
@@ -14,6 +15,8 @@ Citizen: class {
 
     income: Int
     cash := 0
+
+    pos := vec2(0.0, 0.0)
     
     init: func (=income) {
         id = idSeed
