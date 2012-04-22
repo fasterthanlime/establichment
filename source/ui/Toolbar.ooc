@@ -1,5 +1,5 @@
 
-import structs/[ArrayList]
+import structs/[ArrayList, HashMap]
 import ldkit/[Sprites, Input, Math]
 
 import ui/[MainUI, Pass]
@@ -10,6 +10,8 @@ Placement: enum {
     EAST
     SOUTH
 }
+
+
 
 /*
  * A toolbar is a set of items that are clickable
@@ -36,6 +38,17 @@ Toolbar: class {
             case Placement EAST =>
                 pos set!(ui display getWidth() - itemWidth / 2, itemWidth + 80)
         }
+
+        ui input onMouseMove(||
+            point := ui input mousepos
+            items each(|item|
+                if(item rect containsPoint(point)) {
+                    item _changeState(ItemState HOVER)
+                } else {
+                    item _changeState(ItemState IDLE)
+                }
+            )
+        )
     }
 
     add: func (item: Item) {
@@ -66,9 +79,12 @@ Toolbar: class {
 
 }
 
+
+
 ItemState: enum {
     IDLE
-    CLICKED
+    HOVER
+    PRESSED
 }
 
 /*
@@ -80,12 +96,21 @@ Item: class {
     icon: String
     width, height: Int
 
+    colors := static HashMap<ItemState, Vec3> new()
+
     state := ItemState IDLE
 
     sprite: GroupSprite
     rect: RectSprite
 
     init: func (=name) {
+        // FIXME: static initialization workaround suxxorz
+        if (colors empty?()) {
+            colors add(s1 := ItemState IDLE,    vec3(0.5, 0.5, 0.5))
+            colors add(s2 := ItemState HOVER,   vec3(0.7, 0.7, 0.7))
+            colors add(s3 := ItemState PRESSED, vec3(0.4, 0.4, 0.4))
+        }
+
         sprite = GroupSprite new()
 
         rect = RectSprite new(vec2(0, 0))
@@ -110,5 +135,12 @@ Item: class {
         rect  size set!(width, height) 
     }
 
+    _changeState: func (=state) {
+        // TODO: validate state?
+        // TODO: notify listeners?
+        rect color set!(colors get(state))
+    }
+
 }
+
 

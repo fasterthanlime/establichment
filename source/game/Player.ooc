@@ -20,7 +20,7 @@ Player: class {
     }
 
     update: func (date: GameDate) {
-        agencies each(|a| a update(date))
+        // agencies each(|a| a update(date))
 
         cashHistory add(date, getCash())
     }
