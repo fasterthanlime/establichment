@@ -14,35 +14,41 @@ Terrain: class {
     tileHeight := 25
 
     pass: Pass
+    passes: ArrayList<Pass>
     ui: MainUI
 
+    xAxis, yAxis: Vec2
+
+    tileTypes := [
+        "concrete", "concrete", "concrete", "concrete", "concrete", "concrete", "concrete", "concrete", 
+        "lava"
+        "tower"
+    ] as ArrayList<String>
+
+
     init: func (=ui) {
-        pass := Pass new(ui, "terrain")
+        pass = Pass new(ui, "terrain")
         ui levelPass addPass(pass)
 
-        tileTypes := [
-            "concrete", "concrete", "concrete", "concrete", "concrete", "concrete", "concrete", "concrete", 
-            "lava"
-            "tower"
-        ] as ArrayList<String>
+        xAxis = vec2( tileWidth, -tileHeight)
+        yAxis = vec2(-tileWidth, -tileHeight)
 
         passCount := width + height - 1
-        passes := ArrayList<Pass> new()
+        passes = ArrayList<Pass> new()
         for (i in 0..passCount) {
             p := Pass new(ui, "isometric %d" format(i))
             passes add(0, p)
             pass addPass(p)
         }
 
-        // build terrain tiles
-        totalWidth  := width  * 0 * tileWidth
-        totalHeight := height * -1 * tileHeight
+        spawnRandomTiles()
+    }
 
-        offsetX := ui display getWidth() / 2 - totalWidth / 2
-        offsetY := ui display getHeight() / 2 - totalHeight / 2
+    spawnRandomTiles: func {
+        // build terrain tiles
+        offset := getOffset()
 
         /*
-
             The coordinates work like this:
 
                    o
@@ -51,15 +57,23 @@ Terrain: class {
              y  /     \ x
 
          */
-        xAxis := vec2( tileWidth, -tileHeight)
-        yAxis := vec2(-tileWidth, -tileHeight)
 
-        base := vec2(offsetX, offsetY)
+        base := vec2(offset x, offset x)
 
         for(x in 0..width) for (y in 0..height) {
             pos := base add(xAxis mul(x)) add(yAxis mul(y))
             passes[x + y] addSprite(tile(pos, Random choice(tileTypes)))
         }        
+    }
+
+    getOffset: func -> Vec2 {
+        totalWidth  := 0
+        totalHeight := height * -1 * tileHeight
+
+        vec2(
+            ui display getWidth() / 2 - totalWidth / 2,
+            ui display getHeight() / 2 - totalHeight / 2
+        )
     }
 
     tile: func (pos: Vec2, name: String) -> Sprite {
