@@ -2,7 +2,7 @@
 import structs/[Stack]
 
 import MainUI
-import ldkit/Sprites
+import ldkit/[Sprites, Math]
 
 FlashMessages: class {
 
@@ -16,7 +16,7 @@ FlashMessages: class {
     labelSprite: LabelSprite
 
     init: func (=ui) {
-        labelSprite = LabelSprite new(ui display getCenter(), "")
+        labelSprite = LabelSprite new(vec2(ui display getCenter() x, (ui display getHeight() - 40) as Float), "")
         labelSprite color set!(0.9, 0.9, 0.5)
         labelSprite fontSize = 30.0
         labelSprite centered = true

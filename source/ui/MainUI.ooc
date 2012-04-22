@@ -32,6 +32,7 @@ MainUI: class {
         title := config["title"]
 
         display = Display new(width, height, fullScreen, title)
+        display hideCursor()
 
         input = Input new()
 
@@ -51,6 +52,10 @@ MainUI: class {
     statusPass := Pass new(this, "status") // various info
     levelTitle: LabelSprite
 
+    // mouse pass (cursor)
+    mousePass := Pass new(this, "mouse")
+    cursor: GroupSprite
+
     flashMessages: FlashMessages
 
     initPasses: func {
@@ -63,6 +68,17 @@ MainUI: class {
         levelTitle = LabelSprite new(vec2(30, 30), "<level name>")
         levelTitle color set!(1.0, 1.0, 1.0)
         statusPass addSprite(levelTitle)
+   
+        // offset to make the hand correspond with the actual mouse
+        cursorImage := ImageSprite new(vec2(-12, -10), "assets/png/cursor.png") 
+        cursor = GroupSprite new()
+        cursor add(cursorImage)
+
+        mousePass addSprite(cursor)
+
+        input onMouseMove(||
+            cursor pos set!(input mousepos)
+        )
 
         reset()
     }
@@ -85,6 +101,9 @@ MainUI: class {
 
         // status is just a few text fields, no need to recreate
         rootPass addPass(statusPass)
+
+        // no need to recreate either
+        rootPass addPass(mousePass)
     }
 
     flash: func (msg: String) {
