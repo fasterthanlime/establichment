@@ -22,8 +22,8 @@ main: func (argc: Int, argv: CString*) {
     config := ZombieConfig new(configPath, |base|
         base("title", "establichment")
         base("fullScreen", "false")
-        base("screenWidth", "1024")
-        base("screenHeight", "768")
+        base("screenWidth", "1280")
+        base("screenHeight", "720")
         base("startLevel", "tutorial")
     )
 
