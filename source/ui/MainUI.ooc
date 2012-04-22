@@ -4,7 +4,7 @@ use gobject, cairo, sdl, deadlogger, ldkit
 
 // game deps
 import ldkit/[Display, Input, Math, Sprites]
-import Pass, FlashMessages
+import Pass, FlashMessages, Toolbar
 
 // libs deps
 import deadlogger/Log
@@ -59,6 +59,8 @@ MainUI: class {
 
     flashMessages: FlashMessages
 
+    toolbar: Toolbar
+
     initPasses: func {
         flashMessages = FlashMessages new(this)
 
@@ -106,11 +108,23 @@ MainUI: class {
         hudPass reset()
         rootPass addPass(hudPass)
 
+        // toolbar
+        toolbar = createToolbar()
+        rootPass addPass(toolbar pass)
+
         // status is just a few text fields, no need to recreate
         rootPass addPass(statusPass)
 
         // no need to recreate either
         rootPass addPass(mousePass)
+    }
+
+    createToolbar: func -> Toolbar {
+        tb := Toolbar new(this)
+        tb add(Item new("Pisshole"))
+        tb add(Item new("Rat house"))
+        tb add(Item new("Golden cage"))
+        tb
     }
 
     flash: func (msg: String) {
