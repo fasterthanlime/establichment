@@ -17,7 +17,9 @@ Placement: enum {
 Toolbar: class {
     ui: MainUI
 
-    itemWidth := 100
+    itemWidth := 140
+    padding := 10
+
     items := ArrayList<Item> new()
 
     pass: Pass
@@ -32,12 +34,14 @@ Toolbar: class {
 
         match placement {
             case Placement EAST =>
-                pos set!(ui display getWidth() - itemWidth / 2, 120)
+                pos set!(ui display getWidth() - itemWidth / 2, itemWidth + 80)
         }
     }
 
     add: func (item: Item) {
         item sprite pos set!(nextItemPos())
+        item setSize(itemWidth - padding, itemWidth - padding)
+
         pass addSprite(item sprite)
         items add(item)
     }
@@ -47,7 +51,7 @@ Toolbar: class {
 
         match placement {
             case Placement EAST => 
-                nextPos y = getHeight()
+                nextPos y = pos y + getHeight()
         }
         nextPos
     }
@@ -74,21 +78,36 @@ Item: class {
 
     name: String
     icon: String
+    width, height: Int
+
     state := ItemState IDLE
 
     sprite: GroupSprite
+    rect: RectSprite
 
     init: func (=name) {
         sprite = GroupSprite new()
 
-        ls := LabelSprite new(vec2(0, 0), name)
-        ls centered = true
+        rect = RectSprite new(vec2(0, 0))
+        rect color set!(0.8, 0.8, 0.8)
+        rect filled = true
+        sprite add(rect)
 
+        rect2 := RectSprite new(vec2(0, 0))
+        rect2 size = rect size
+        rect2 color set!(0.5, 0.5, 0.5)
+        rect2 thickness = 1.0
+        rect2 filled = false
+        sprite add(rect2)
+
+        ls := LabelSprite new(vec2(0, 0), name)
+        ls color set!(0.2, 0.2, 0.2)
+        ls centered = true
         sprite add(ls)
     }
 
-    setWidth: func (width: Int) {
-
+    setSize: func (=width, =height) {
+        rect  size set!(width, height) 
     }
 
 }
