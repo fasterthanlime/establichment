@@ -7,7 +7,7 @@ import deadlogger/Log
 // game deps
 import Citizen, Terrain, Level
 
-Property: class {
+Portal: class {
 
     logger := static Log getLogger(This name)
 
@@ -18,25 +18,28 @@ Property: class {
 
     sprite: GroupSprite
 
-    places: Int
-
     terrain: Terrain
 
-    init: func (=terrain, =places) {
+    init: func (=terrain) {
         id = idSeed
         idSeed += 1 
 
         sprite = GroupSprite new()
 
-        is := ImageSprite new(vec(0, 0), "assets/png/phaser-100px.png")
+        is := ImageSprite new(vec(0, 0), "assets/png/portal-x-100px.png")
         is pos set!(0, - (is height - terrain tileHeight))
         sprite add(is)
 
         terrain pass2 addSprite(sprite)
     }
 
+    setPos: func (x, y: Int) {
+        isopos set!(x, y)
+        update()
+    }
+
     update: func {
-        // TODO: do stuff
+        // TODO: spawn citizens once and then
         sprite pos set!(terrain getScreenPos(isopos))        
     }
 

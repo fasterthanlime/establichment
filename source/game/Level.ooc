@@ -2,7 +2,7 @@
 // game deps
 import ui/MainUI
 import game/Engine
-import game/[Player, Citizen, Dataset, Terrain]
+import game/[Player, Citizen, Dataset, Terrain, Portal]
 
 // libs deps
 import structs/[ArrayList]
@@ -74,9 +74,8 @@ Level: class {
     mainPlayer: Player
     players := ArrayList<Player> new()
 
-    // citizens make their own decision on how to spend their money
     citizens := ArrayList<Citizen> new()
-    citizenHistory := Dataset new()
+    portals := ArrayList<Portal> new()
 
     terrain: Terrain
 
@@ -89,11 +88,22 @@ Level: class {
         mainPlayer = Player new(this, "Gob")
         players add(mainPlayer)
 
+        spawnPortals()
         spawnCitizens()
     }
 
+    spawnPortals: func {
+        for (i in 0..5) {
+            p := Portal new(terrain)
+            p setPos(Random randRange(0, 2), Random randRange(0, 2))
+
+            portals add(p)
+        }
+
+        logger info("Added %d portals." format(portals size))
+    }
+
     spawnCitizens: func {
-        // test code
         for (i in 0..5) {
             c := Citizen new(terrain)
             c setPos(Random randRange(0, 2), Random randRange(0, 2))
@@ -116,6 +126,8 @@ Level: class {
 
         date update()
     
+        portals each (|p| p update())
+
         citizens each (|c| c update(date))
         players each (|p| p update(date))
     }

@@ -7,7 +7,7 @@ import math/Random
 // game deps
 import Level, Terrain, ui/Graphics
 
-DELTA := 0.01
+DELTA := 0.02
 
 Citizen: class {
 
@@ -32,11 +32,9 @@ Citizen: class {
 
         sprite = GroupSprite new()
 
-        ls := LabelSprite new(vec2(45, -30), "0")
-        ls fontSize = 80
-        ls color set!(1, 1, 1)
-        ls centered = true
-        sprite add(ls)
+        is := ImageSprite new(vec2(0, 0), "assets/png/alien-x-100px.png")
+        is pos set!(0, - (is height - terrain tileHeight))
+        sprite add(is)
 
         terrain pass2 addSprite(sprite)
     }
@@ -66,7 +64,6 @@ Citizen: class {
         }
 
         isopos add!(isodir)
-
         sprite pos set!(terrain getScreenPos(isopos))
     }
 
