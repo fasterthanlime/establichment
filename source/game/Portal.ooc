@@ -23,7 +23,7 @@ Portal: class extends OrientedIsoThing {
     }
 
     loadSprite: func {
-        sprite add(loadIsoImage("assets/png/portal-x-100px.png"))
+        sprite add(loadIsoImage("assets/png/portal.png"))
     }
 
 }

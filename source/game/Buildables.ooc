@@ -54,7 +54,7 @@ Tower: class extends Buildable {
         glowingBulb alpha = 0.7
         sprite add(glowingBulb)
 
-        sprite add(loadIsoImage("assets/png/phaser-100px.png"))
+        sprite add(loadIsoImage("assets/png/phaser.png"))
     }
 
     updateGfx: func {

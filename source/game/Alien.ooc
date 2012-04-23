@@ -21,7 +21,7 @@ Alien: class extends OrientedIsoThing {
     }
 
     loadSprite: func {
-        sprite add(loadIsoImage("assets/png/alien-x-100px.png"))
+        sprite add(loadIsoImage("assets/png/alien.png"))
     }
 
     setPos: func (x, y: Float) {

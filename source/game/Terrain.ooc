@@ -257,7 +257,7 @@ Terrain: class {
     }
 
     tile: func (pos: Vec2, name: String) -> Sprite {
-        file := "assets/png/%s-100px.png" format(name)
+        file := "assets/png/%s.png" format(name)
         is := ImageSprite new(pos, file)
         is pos set!(is pos x, is pos y - (is height - tileHeight))
         is
