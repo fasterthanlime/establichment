@@ -9,7 +9,7 @@ import Citizen, Terrain, Level
 
 Portal: class extends OrientedIsoThing {
 
-    rate := 100
+    rate := 40
 
     init: func (.level, .dir) {
         super(level, dir)
@@ -18,7 +18,7 @@ Portal: class extends OrientedIsoThing {
             c := Citizen new(level)
             c setPos(pos x, pos y)
             c target set!(pos add(dir))
-            level things add(c)
+            level add(c)
         )
     }
 

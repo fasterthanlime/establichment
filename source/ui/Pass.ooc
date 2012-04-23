@@ -43,6 +43,10 @@ Pass: class {
         sprites add(sprite)
     }
 
+    removeSprite: func (sprite: Sprite) {
+        sprites remove(sprite)
+    }
+
     draw: func {
         sprites each(|s| s draw(ui display))
         passes each(|p| p draw())

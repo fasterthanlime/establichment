@@ -155,8 +155,17 @@ Level: class {
             p := Portal new(this, orientation2vec(Orientation LEFT))
             p setPos(Random randRange(0, terrain width), Random randRange(0, terrain height))
 
-            things add(p)
+            add(p)
         }
+    }
+
+    add: func (t: Thing) {
+        things add(t)
+    }
+
+    remove: func (t: Thing) {
+        things remove(t)
+        t destroy()
     }
 
     setup: func {

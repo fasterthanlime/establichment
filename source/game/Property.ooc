@@ -15,7 +15,7 @@ Property: class extends IsoThing {
     tenantsLabel: LabelSprite
 
     slurpTime := 15
-    leaseTime := 30
+    leaseTime := 150
     counter := 0
 
     init: func (.level, =places) {
@@ -29,8 +29,11 @@ Property: class extends IsoThing {
 
         every(slurpTime, ||
             if (tenants < places) {
+                level // workaround
                 findInBox(3, false, Citizen, |citz|
                     logger info ("Found citizen %x around property %x!" format(citz, this)) 
+                    level remove(citz)
+                    tenants += 1
                 )
             }
         )

@@ -19,7 +19,7 @@ Player: class {
             p := Property new(level, 10)
             p pos set!(Random randRange(0, level terrain width),
                        Random randRange(0, level terrain height))
-            level things add(p)
+            level add(p)
         }
     }
 

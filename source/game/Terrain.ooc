@@ -116,6 +116,11 @@ IsoThing: class extends Thing {
         // please override this one instead, or call super on update
     }
 
+    destroy: func {
+        super()
+        level terrain pass2 removeSprite(sprite)
+    }
+
 }
 
 OrientedIsoThing: class extends IsoThing {
