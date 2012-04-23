@@ -12,7 +12,7 @@ Player: class {
     name: String
     level: Level
     
-    cash := 3000
+    cash := 600
 
     init: func(=level, =name) {
         /*

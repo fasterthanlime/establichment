@@ -5,7 +5,7 @@ import structs/ArrayList
 import deadlogger/Log
 
 // game deps
-import Alien, Terrain, Level
+import Alien, Terrain, Level, Player
 import ui/MainUI
 
 Property: class extends IsoThing {
@@ -36,6 +36,7 @@ Property: class extends IsoThing {
                 level // workaround
                 findInBox(3, false, Alien, |alien|
                     level ui boombox play(level ui landingSound)
+                    level player cash += alien reward
                     level remove(alien)
                     tenants += 1
                 )

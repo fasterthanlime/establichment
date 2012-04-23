@@ -11,6 +11,8 @@ Alien: class extends OrientedIsoThing {
 
     target := vec2(0.0, 0.0)
 
+    reward := 20
+
     epsilon := static 0.1
     speed := 0.03
 
@@ -43,7 +45,7 @@ Alien: class extends OrientedIsoThing {
     
     newTarget: func {
         good := false
-        newTarget := vec2(0, 0)
+        newTarget := pos clone()
 
         tries := 10
         while (!good && tries > 0) {
