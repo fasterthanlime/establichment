@@ -13,6 +13,8 @@ Terrain: class {
     tileWidth := 50
     tileHeight := 25
 
+    base: Vec2
+
     pass: Pass
     passes: ArrayList<Pass>
     ui: MainUI
@@ -22,14 +24,18 @@ Terrain: class {
     tileTypes := [
         "concrete", "concrete", "concrete", "concrete", "concrete", "concrete", "concrete", "concrete", 
         "lava"
-        "tower"
     ] as ArrayList<String>
 
+    getScreenPos: func (isopos: Vec2) -> Vec2 {
+            base add(xAxis mul(isopos x)) add(yAxis mul(isopos y))
+    }
 
     init: func (=ui) {
         pass = Pass new(ui, "terrain")
         ui levelPass addPass(pass)
 
+        offset := getOffset()
+        base = vec2(offset x, offset x)
         xAxis = vec2( tileWidth, -tileHeight)
         yAxis = vec2(-tileWidth, -tileHeight)
 
@@ -45,23 +51,9 @@ Terrain: class {
     }
 
     spawnRandomTiles: func {
-        // build terrain tiles
-        offset := getOffset()
-
-        /*
-            The coordinates work like this:
-
-                   o
-                  / \   
-                 /   \
-             y  /     \ x
-
-         */
-
-        base := vec2(offset x, offset x)
-
+        // lay terrain tiles
         for(x in 0..width) for (y in 0..height) {
-            pos := base add(xAxis mul(x)) add(yAxis mul(y))
+            pos := getScreenPos(vec2(x, y))
             passes[x + y] addSprite(tile(pos, Random choice(tileTypes)))
         }        
     }

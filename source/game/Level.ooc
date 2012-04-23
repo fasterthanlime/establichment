@@ -2,7 +2,7 @@
 // game deps
 import ui/MainUI
 import game/Engine
-import game/[Player, Agency, Citizen, Dataset, Terrain]
+import game/[Player, Citizen, Dataset, Terrain]
 
 // libs deps
 import structs/[ArrayList]
@@ -100,19 +100,11 @@ Level: class {
         // test code
         dummyIncome := 3000
         for (i in 0..1) {
-            c := Citizen new(dummyIncome)
+            c := Citizen new(terrain)
             citizens add(c)
         }
 
         logger info("Added %d citizens." format(citizens size))
-    }
-
-    findShelter: func (c: Citizen) {
-        // fair way to distribute citizen in shelters
-        // test code
-        player := Random choice(players)
-        agency := Random choice(player agencies)
-        agency findShelter(c)
     }
 
     setup: func {
