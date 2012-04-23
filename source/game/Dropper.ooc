@@ -40,6 +40,7 @@ Dropper: class {
             mp := input mousepos
             pos set!(mp)
 
+            // TODO: check if it's on terrain.
             cleanup()
             cb(getIsoPos())
         )

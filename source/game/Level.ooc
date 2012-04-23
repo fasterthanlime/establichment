@@ -187,15 +187,22 @@ Level: class {
             case "tower" =>
                 tower := Property new(this, 10)
 
-                drp := Dropper new(this, |pos|
-                    logger info("Dropping tower at %s" format(pos _))
-                    tower pos set!(pos)
-                    add(tower)
-                    ui boombox play(ui buildSound)
-                )
+                if (player cash <= tower cost) {
+                    ui boombox play(ui nopeSound)
+                } else {
+                    drp := Dropper new(this, |pos|
+                        logger info("Dropping tower at %s" format(pos _))
+                        tower pos set!(pos)
+                        add(tower)
+                        ui boombox play(ui buildSound)
+                        player cash -= tower cost
+                    )
 
-                drp sprite add(LabelSprite new(vec2(0, 0), type))
-                drp sprite add(tower sprite)
+                    drp sprite add(LabelSprite new(vec2(0, 0), type))
+                    drp sprite add(tower sprite)
+                }
+            case => 
+                    ui boombox play(ui nopeSound)
         }
     }
 

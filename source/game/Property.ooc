@@ -12,6 +12,8 @@ Property: class extends IsoThing {
 
     places: Int
 
+    cost := 250
+
     tenants := 0
     tenantsLabel: LabelSprite
     glowingBulb: EllipseSprite
