@@ -3,18 +3,26 @@
 import structs/ArrayList
 
 // game deps
-import Level, Dataset
+import Level, Dataset, Terrain, Property
+import ui/[MainUI]
 
 Player: class {
 
     name: String
+    level: Level
+    
+    cash := 3000
 
-    init: func(=name) {
+    properties := ArrayList<Property> new()
 
+    init: func(=level, =name) {
+        // test code: add a property for fun
+        properties add(Property new(level terrain, 10))
     }
 
     update: func (date: GameDate) {
-        // TODO: what?
+        // TODO: update cash?
+        level ui cashLabel setText("%d CHF" format(cash))
     }
 
 }

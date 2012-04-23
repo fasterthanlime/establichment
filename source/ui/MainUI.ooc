@@ -75,7 +75,7 @@ MainUI: class {
     // status sprites
     statusPass := Pass new(this, "status") // various info
     levelTitle: LabelSprite
-    cash: LabelSprite
+    cashLabel: LabelSprite
 
     // mouse pass (cursor)
     mousePass := Pass new(this, "mouse")
@@ -95,12 +95,14 @@ MainUI: class {
         levelTitle = LabelSprite new(vec2(100, 30), "<level name>")
         levelTitle color set!(1.0, 1.0, 1.0)
         levelTitle centered = true
+        levelTitle fontSize = 30.0
         statusPass addSprite(levelTitle)
 
-        cash = LabelSprite new(vec2(display getWidth() - 100, 30), "0.- CHF")
-        cash centered = true
-        cash color set!(1.0, 1.0, 1.0)
-        statusPass addSprite(cash)
+        cashLabel = LabelSprite new(vec2(display getWidth() - 100, 30), "0 CHF")
+        cashLabel centered = true
+        cashLabel fontSize = 30.0
+        cashLabel color set!(1.0, 1.0, 1.0)
+        statusPass addSprite(cashLabel)
    
         // offset to make the hand correspond with the actual mouse
         cursorImage := ImageSprite new(vec2(-12, -10), "assets/png/cursor.png") 

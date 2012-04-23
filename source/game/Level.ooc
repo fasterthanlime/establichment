@@ -21,10 +21,6 @@ GameDate: class {
     
     update: func {
         day += 1
-    
-        if (isMonth?()) {
-            logger info("Day %d" format(day))
-        }
     }
 
     before?: func (other: This) -> Bool {
@@ -90,7 +86,7 @@ Level: class {
         terrain = Terrain new(ui)
 
         // single-player mode: test code
-        mainPlayer = Player new("Gob")
+        mainPlayer = Player new(this, "Gob")
         players add(mainPlayer)
 
         spawnCitizens()
