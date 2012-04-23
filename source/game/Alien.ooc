@@ -71,9 +71,9 @@ Alien: class extends OrientedIsoThing {
                if (!thing instanceOf?(Alien)) good = false
             )
         }
-        logger info("Alrighty, new target %s it is! (width/height = %d, %d)" format(
-            newTarget _, level terrain width, level terrain height
-        ))
+        // logger info("Alrighty, new target %s it is! (width/height = %d, %d)" format(
+        //     newTarget _, level terrain width, level terrain height
+        // ))
         target set!(newTarget)
     }
 
