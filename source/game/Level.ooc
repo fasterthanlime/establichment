@@ -53,54 +53,62 @@ withProbability: func (proba: Float, cb: Func) {
     }
 }
 
-Orientation: enum {
-    RIGHT
-    UP
-    LEFT
-    DOWN
-}
+Interval: class {
 
-orientation2string: func (o: Orientation) -> String {
-    match o {
-        case Orientation RIGHT => "right"
-        case Orientation UP    => "up"
-        case Orientation LEFT  => "left"
-        case Orientation DOWN  => "down"
+    length: Int
+    counter := 0
+    repeat: Bool
+
+    cb: Func
+
+    init: func (=length, =repeat, =cb) {
+        counter = length
     }
-}
 
-orientation2vec: func (o: Orientation) -> Vec2 {
-    match o {
-        case Orientation RIGHT => vec2( 1,  0)
-        case Orientation UP    => vec2( 0,  1)
-        case Orientation LEFT  => vec2(-1,  0)
-        case Orientation DOWN  => vec2( 0, -1)
-    }
-}
-
-vec2orientation: func (v: Vec2) -> Orientation {
-    match {
-        case v x < EPSILON => match {
-            case v y < 0 => Orientation DOWN
-            case         => Orientation UP
+    update: func -> Bool {
+        counter -= 1
+        if (counter <= 0) {
+            cb()
+            if (repeat) {
+                counter = length
+            } else {
+                return false
+            }
         }
-        case => match {
-            case v x < 0 => Orientation LEFT
-            case         => Orientation RIGHT
-        }
+        true
     }
+
 }
 
 Thing: class {
 
     logger := static Log getLogger(This name)
+    intervals: ArrayList<Interval>
 
     init: func {
         // definitely overload this one
     }
 
+    every: func (length: Int, cb: Func) {
+        if (!intervals) intervals = ArrayList<Interval> new()
+        intervals add(Interval new(length, true, cb))
+    }
+
+    in: func (length: Int, cb: Func) {
+        if (!intervals) intervals = ArrayList<Interval> new()
+        intervals add(Interval new(length, true, cb))
+    }
+
     update: func {
-        // do what you want cause a pirate is free
+        // run all intervals and remove expired ones
+        if (!intervals) return
+        iter := intervals iterator()
+        while (iter hasNext?()) {
+            interval := iter next() 
+            if (!interval update()) {
+                iter remove()
+            }
+        }
     }
 
     destroy: func {
