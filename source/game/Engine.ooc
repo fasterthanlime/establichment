@@ -14,11 +14,12 @@ Engine: class {
 
     ui: MainUI
     level: Level
+    currentLevel := ""
 
     FPS := 30.0 // let's target 30FPS
 
     init: func(config: ZombieConfig) {
-        ui = MainUI new(config)
+        ui = MainUI new(this, config)
 
         load(config["startLevel"])
 
@@ -45,9 +46,14 @@ Engine: class {
             ui reset()
         }
 
+        currentLevel = levelName
         loader := LevelLoader new(this)
         level = loader load(levelName)
         level setup()
+    }
+
+    reload: func {
+        load(currentLevel)
     }
 
 }

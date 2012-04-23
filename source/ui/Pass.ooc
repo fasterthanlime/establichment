@@ -29,8 +29,6 @@ Pass: class {
     reset: func {
         sprites each(|s| s free())
         sprites clear()
-
-        passes each(|p| p reset())
         passes clear()
     }
 

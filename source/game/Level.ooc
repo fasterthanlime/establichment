@@ -91,7 +91,6 @@ Thing: class {
 
     every: func (length: Int, cb: Func) {
         if (!intervals) intervals = ArrayList<Interval> new()
-        logger info("Added interval of length %d" format(length))
         intervals add(Interval new(length, true, cb))
     }
 

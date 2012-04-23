@@ -4,6 +4,7 @@ use gobject, cairo, sdl, deadlogger, ldkit
 
 // game deps
 import ldkit/[Display, Input, Math, Sprites, Sound]
+import game/Engine
 import Pass, FlashMessages, Toolbar
 
 // libs deps
@@ -25,10 +26,13 @@ MainUI: class {
     // something we can make noise with
     boombox: Boombox
 
+    // something we can control level loading with
+    engine: Engine
+
     /*
      * Constructors
      */
-    init: func (config: ZombieConfig) {
+    init: func (=engine, config: ZombieConfig) {
         // note: all config entries are String, so we just have to cheat a bit ;)
         width  := config["screenWidth"]  toInt()
         height := config["screenHeight"] toInt()
@@ -148,18 +152,18 @@ MainUI: class {
 
     createLeftToolbar: func -> Toolbar {
         tb := Toolbar new(this, vec2(160, 70), Placement WEST)
-        tb add(Item new("Restart level"))
-        tb add(Item new("Previous level"))
-        tb add(Item new("Next level"))
-        tb add(Item new("Exit"))
+        tb add(Item new("Restart level", || engine reload()))
+        tb add(Item new("Previous level", || logger info("Should switch to prev level")))
+        tb add(Item new("Next level", || logger info("Should switch to next level")))
+        tb add(Item new("Exit", || exit(0)))
         tb
     }
 
     createRightToolbar: func -> Toolbar {
         tb := Toolbar new(this, vec2(140, 140), Placement EAST)
-        tb add(Item new("Tree"))
-        tb add(Item new("House"))
-        tb add(Item new("Tower"))
+        tb add(Item new("Tree", || logger info("Should start tree planting")))
+        tb add(Item new("House", || logger info("Should start house planting")))
+        tb add(Item new("Tower", || logger info("Should start tower planting")))
         tb
     }
 

@@ -43,6 +43,10 @@ Toolbar: class {
                 pos set!(itemWidth / 2, itemHeight + 80)
         }
 
+        initEvents()
+    }
+
+    initEvents: func {
         ui input onMouseMove(||
             point := ui input mousepos
             items each(|item|
@@ -51,6 +55,21 @@ Toolbar: class {
                 } else {
                     item _changeState(ItemState IDLE)
                 }
+            )
+        )
+
+        ui input onMousePress(1, ||
+            point := ui input mousepos
+            items each(|item|
+                if(item rect containsPoint(point)) {
+                    item _changeState(ItemState PRESSED)
+                }
+            )
+        )
+
+        ui input onMouseRelease(1, ||
+            items each(|item|
+                item _changeState(ItemState IDLE)
             )
         )
     }
@@ -121,7 +140,9 @@ Item: class {
     sprite: GroupSprite
     rect: RectSprite
 
-    init: func (=name) {
+    onPress: Func
+
+    init: func (=name, =onPress) {
         // FIXME: static initialization workaround suxxorz
         if (colors empty?()) {
             colors add(s1 := ItemState IDLE,    vec3(0.5, 0.5, 0.5))
@@ -153,9 +174,12 @@ Item: class {
         rect  size set!(width, height) 
     }
 
-    _changeState: func (=state) {
-        // TODO: validate state?
-        // TODO: notify listeners?
+    _changeState: func (.state) {
+        if(this state == ItemState PRESSED && state == ItemState IDLE) {
+            onPress()
+        }
+        this state = state
+
         rect color set!(colors get(state))
     }
 
