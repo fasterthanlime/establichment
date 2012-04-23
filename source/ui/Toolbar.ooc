@@ -19,7 +19,8 @@ Placement: enum {
 Toolbar: class {
     ui: MainUI
 
-    itemWidth := 140
+    itemSize := vec2(140, 140)
+
     padding := 10
 
     items := ArrayList<Item> new()
@@ -29,14 +30,17 @@ Toolbar: class {
     placement := Placement EAST
     pos: Vec2
 
-    init: func (=ui) {
+    init: func (=ui, .itemSize, =placement) {
         pos = vec2(40, 40)
+        this itemSize set!(itemSize)
 
         pass = Pass new(ui, "toolbar")
 
         match placement {
             case Placement EAST =>
-                pos set!(ui display getWidth() - itemWidth / 2, itemWidth + 80)
+                pos set!(ui display getWidth() - itemWidth / 2, itemHeight + 80)
+            case Placement WEST =>
+                pos set!(itemWidth / 2, itemHeight + 80)
         }
 
         ui input onMouseMove(||
@@ -51,9 +55,21 @@ Toolbar: class {
         )
     }
 
+    itemWidth: Int {
+        get {
+            itemSize x
+        }
+    }
+
+    itemHeight: Int {
+        get {
+            itemSize y
+        }
+    }
+
     add: func (item: Item) {
         item sprite pos set!(nextItemPos())
-        item setSize(itemWidth - padding, itemWidth - padding)
+        item setSize(itemWidth - padding, itemHeight - padding)
 
         pass addSprite(item sprite)
         items add(item)
@@ -65,6 +81,8 @@ Toolbar: class {
         match placement {
             case Placement EAST => 
                 nextPos y = pos y + getHeight()
+            case Placement WEST => 
+                nextPos y = pos y + getHeight()
         }
         nextPos
     }
@@ -74,7 +92,7 @@ Toolbar: class {
     }
 
     getHeight: func -> Int {
-        itemWidth * items size
+        itemHeight * items size
     }
 
 }

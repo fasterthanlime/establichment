@@ -81,7 +81,7 @@ MainUI: class {
 
     flashMessages: FlashMessages
 
-    toolbar: Toolbar
+    lToolbar, rToolbar: Toolbar
 
     initPasses: func {
         flashMessages = FlashMessages new(this)
@@ -133,8 +133,11 @@ MainUI: class {
         rootPass addPass(hudPass)
 
         // toolbar
-        toolbar = createToolbar()
-        rootPass addPass(toolbar pass)
+        lToolbar = createLeftToolbar()
+        rootPass addPass(lToolbar pass)
+
+        rToolbar = createRightToolbar()
+        rootPass addPass(rToolbar pass)
 
         // status is just a few text fields, no need to recreate
         rootPass addPass(statusPass)
@@ -143,11 +146,20 @@ MainUI: class {
         rootPass addPass(mousePass)
     }
 
-    createToolbar: func -> Toolbar {
-        tb := Toolbar new(this)
-        tb add(Item new("Pisshole"))
-        tb add(Item new("Rat house"))
-        tb add(Item new("Golden cage"))
+    createLeftToolbar: func -> Toolbar {
+        tb := Toolbar new(this, vec2(160, 70), Placement WEST)
+        tb add(Item new("Restart level"))
+        tb add(Item new("Previous level"))
+        tb add(Item new("Next level"))
+        tb add(Item new("Exit"))
+        tb
+    }
+
+    createRightToolbar: func -> Toolbar {
+        tb := Toolbar new(this, vec2(140, 140), Placement EAST)
+        tb add(Item new("Tree"))
+        tb add(Item new("House"))
+        tb add(Item new("Tower"))
         tb
     }
 

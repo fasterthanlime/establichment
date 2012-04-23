@@ -144,8 +144,8 @@ OrientedIsoThing: class extends IsoThing {
 
 Terrain: class {
 
-    width := 8
-    height := 8
+    width := 10
+    height := 10
 
     tileWidth := 50
     tileHeight := 25
