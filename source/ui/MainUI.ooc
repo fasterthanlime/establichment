@@ -58,7 +58,7 @@ MainUI: class {
         boombox = Boombox new()
 
         bgMusic = boombox load("assets/music/quiet-dignity.ogg")
-        boombox play(bgMusic)
+        boombox loop(bgMusic)
 
         clickSound = boombox load("assets/sounds/click.ogg")
 

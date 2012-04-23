@@ -128,6 +128,7 @@ Level: class {
     logger := static Log getLogger(This name)
     engine: Engine
     date := GameDate new()
+    maxHomeless := 100
 
     terrain: Terrain
 
@@ -152,12 +153,20 @@ Level: class {
     }
 
     spawnPortals: func {
-        for (i in 0..3) {
+        for (i in 0..1) {
             p := Portal new(this, orientation2vec(Orientation LEFT))
             p setPos(Random randRange(0, terrain width), Random randRange(0, terrain height))
 
             add(p)
         }
+    }
+
+    countHomeless: func -> Int {
+        count := 0
+        for (t in things) {
+            if (t instanceOf?(Alien)) count += 1
+        }
+        count
     }
 
     add: func (t: Thing) {
@@ -181,6 +190,11 @@ Level: class {
     
         things each (|t| t update())
         player update(date)
+
+        ui homelessLabel setText("%d / %d homeless" format(
+            countHomeless(),
+            maxHomeless
+        ))
     }
 
     drop: func (type: String) {
