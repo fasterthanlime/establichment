@@ -165,9 +165,10 @@ MainUI: class {
 
     createRightToolbar: func -> Toolbar {
         tb := Toolbar new(this, vec2(140, 140), Placement EAST)
-        tb add(Item new("Tree",  || engine level drop("tree")))
-        tb add(Item new("House", || engine level drop("house")))
-        tb add(Item new("Tower", || engine level drop("tower")))
+        tb add(Item new("Tree",      || engine level drop("tree")))
+        tb add(Item new("House",     || engine level drop("house")))
+        tb add(Item new("Building",  || engine level drop("building")))
+        tb add(Item new("Tower",     || engine level drop("tower")))
         tb
     }
 

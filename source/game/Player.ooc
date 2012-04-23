@@ -4,7 +4,7 @@ import structs/ArrayList
 import math/Random
 
 // game deps
-import Level, Dataset, Terrain, Property
+import Level, Dataset, Terrain
 import ui/[MainUI]
 
 Player: class {
@@ -15,14 +15,6 @@ Player: class {
     cash := 600
 
     init: func(=level, =name) {
-        /*
-        for(i in 0..3) {
-            p := Property new(level, 10)
-            p pos set!(Random randRange(0, level terrain width),
-                       Random randRange(0, level terrain height))
-            level add(p)
-        }
-        */
     }
 
     update: func (date: GameDate) {

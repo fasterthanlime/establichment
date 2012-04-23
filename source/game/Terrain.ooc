@@ -123,6 +123,17 @@ IsoThing: class extends Thing {
 
 }
 
+
+Buildable: class extends IsoThing {
+
+    cost := 0
+    
+    init: func (.level) {
+        super(level)
+    }
+
+}
+
 OrientedIsoThing: class extends IsoThing {
 
     dir := vec2(1.0, 0.0)

@@ -2,7 +2,8 @@
 // game deps
 import ui/MainUI
 import game/Engine
-import game/[Player, Alien, Dataset, Terrain, Portal, Property]
+import game/[Player, Alien, Dataset, Terrain, Portal]
+import game/[Buildables]
 import game/[Dropper]
 
 // libs deps
@@ -118,7 +119,7 @@ Thing: class {
 
 }
 
-/**
+/*
  * THE LEVEL CLASS. 
  */
 
@@ -185,26 +186,33 @@ Level: class {
     drop: func (type: String) {
         match type {
             case "tower" =>
-                tower := Property new(this, 10)
-
-                if (player cash <= tower cost) {
-                    ui boombox play(ui nopeSound)
-                } else {
-                    drp := Dropper new(this, |pos|
-                        logger info("Dropping tower at %s" format(pos _))
-                        tower pos set!(pos)
-                        add(tower)
-                        ui boombox play(ui buildSound)
-                        player cash -= tower cost
-                    )
-
-                    drp sprite add(LabelSprite new(vec2(0, 0), type))
-                    drp sprite add(tower sprite)
-                }
+                dropBuildable(Tower new(this, 40))
+            case "building" =>
+                dropBuildable(Building new(this, 15))
+            case "house" =>
+                dropBuildable(House new(this, 4))
+            case "tree" =>
+                dropBuildable(Tree new(this))
             case => 
                     ui boombox play(ui nopeSound)
         }
     }
+
+    dropBuildable: func (buildable: Buildable) {
+        if (player cash <= buildable cost) {
+            ui boombox play(ui nopeSound)
+        } else {
+            drp := Dropper new(this, |pos|
+                buildable pos set!(pos)
+                add(buildable)
+                ui boombox play(ui buildSound)
+                player cash -= buildable cost
+            )
+
+            drp sprite add(buildable sprite)
+        }
+    }
+
 
 } 
 
