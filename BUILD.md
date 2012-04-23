@@ -19,6 +19,9 @@ Put these in your `OOC_LIBS`:
   * <https://github.com/eagle2com/ooc-sdl>
   * <https://github.com/nddrylliog/ooc-cairo>
   * <https://github.com/nddrylliog/ooc-freetype2>
+  * <https://github.com/nddrylliog/alut-ooc>
+  * <https://github.com/nddrylliog/openal-ooc>
+  * <https://github.com/nddrylliog/vorbis-ooc>
 
 ## How to build
 
