@@ -137,9 +137,11 @@ MainUI: class {
         rootPass addPass(hudPass)
 
         // toolbar
+        if (lToolbar) lToolbar destroy()
         lToolbar = createLeftToolbar()
         rootPass addPass(lToolbar pass)
 
+        if (rToolbar) rToolbar destroy()
         rToolbar = createRightToolbar()
         rootPass addPass(rToolbar pass)
 

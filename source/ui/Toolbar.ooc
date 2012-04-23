@@ -24,6 +24,7 @@ Toolbar: class {
     padding := 10
 
     items := ArrayList<Item> new()
+    listeners := ArrayList<Listener> new()
 
     pass: Pass
     
@@ -47,7 +48,7 @@ Toolbar: class {
     }
 
     initEvents: func {
-        ui input onMouseMove(||
+        listeners add(ui input onMouseMove(||
             point := ui input mousepos
             items each(|item|
                 if(item rect containsPoint(point)) {
@@ -56,9 +57,9 @@ Toolbar: class {
                     item _changeState(ItemState IDLE)
                 }
             )
-        )
+        ))
 
-        ui input onMousePress(1, ||
+        listeners add(ui input onMousePress(1, ||
             point := ui input mousepos
             items each(|item|
                 if(item rect containsPoint(point)) {
@@ -66,13 +67,17 @@ Toolbar: class {
                     item _changeState(ItemState PRESSED)
                 }
             )
-        )
+        ))
 
-        ui input onMouseRelease(1, ||
+        listeners add(ui input onMouseRelease(1, ||
             items each(|item|
                 item _changeState(ItemState IDLE)
             )
-        )
+        ))
+    }
+
+    destroy: func {
+        listeners each(|l| ui input unsubscribe(l))
     }
 
     itemWidth: Int {
