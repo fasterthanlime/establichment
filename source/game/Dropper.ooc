@@ -11,43 +11,45 @@ Dropper: class {
     moveListener, clickListener: Listener
 
     sprite: GroupSprite
-    outline: RectSprite
+    pos := vec2(0, 0)
 
     cb: Func (Vec2)
+
+    offsetX, offsetY: Int
 
     init: func (=level, =cb) {
         ui = level ui
         input = ui input
 
-        sprite = GroupSprite new()
+        offsetX = - level terrain tileWidth / 2
+        offsetY = - level terrain tileHeight / 2
 
-        rs := RectSprite new(vec2(0, 0))
-        rs color set!(1, 1, 1)
-        rs filled = false
-        rs thickness = 1
-        rs size set!(level terrain tileWidth, level terrain tileHeight)
-        level terrain pass2 addSprite(rs)
-        outline = rs
+        sprite = GroupSprite new()
 
         moveListener = input onMouseMove(||
             mp := input mousepos
-            sprite pos set!(mp)
+            pos set!(mp)
 
-            // update outline position:
-            isopos := level terrain getIsoPos(sprite pos) snap(1)
+            // from screen to iso then back to screen. Yay!
+            isopos := getIsoPos()
             screenpos := level terrain getScreenPos(isopos)
-            outline pos set!(screenpos)
+            sprite pos set!(screenpos)
         )
 
         clickListener = input onMousePress(1, ||
             mp := input mousepos
-            sprite pos set!(mp)
+            pos set!(mp)
 
             cleanup()
-            cb(level terrain getIsoPos(sprite pos))
+            cb(getIsoPos())
         )
 
         level terrain pass2 addSprite(sprite)
+    }
+
+    
+    getIsoPos: func -> Vec2 {
+        level terrain getIsoPos(vec2(pos x + offsetX, pos y + offsetY)) snap(1)
     }
 
     cleanup: func {
