@@ -52,7 +52,7 @@ MainUI: class {
         logger info("Initializing sound system")
         boombox = Boombox new()
 
-        bgMusic = boombox load("assets/music/MistsOfTime.ogg")
+        bgMusic = boombox load("assets/music/quiet-dignity.ogg")
         boombox play(bgMusic)
 
         clickSound = boombox load("assets/sounds/click.ogg")
