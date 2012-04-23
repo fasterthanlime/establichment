@@ -16,7 +16,10 @@ Terrain: class {
     base: Vec2
 
     pass: Pass
+    pass2: Pass
+
     passes: ArrayList<Pass>
+
     ui: MainUI
 
     xAxis, yAxis: Vec2
@@ -24,6 +27,7 @@ Terrain: class {
     tileTypes := [
         "concrete", "concrete", "concrete", "concrete", "concrete", "concrete", "concrete", "concrete", 
         "lava"
+        "tower"
     ] as ArrayList<String>
 
     getScreenPos: func (isopos: Vec2) -> Vec2 {
@@ -33,6 +37,9 @@ Terrain: class {
     init: func (=ui) {
         pass = Pass new(ui, "terrain")
         ui levelPass addPass(pass)
+
+        pass2 = Pass new(ui, "inhabitants")
+        ui levelPass addPass(pass2)
 
         offset := getOffset()
         base = vec2(offset x, offset x)
