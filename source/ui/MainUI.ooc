@@ -80,6 +80,7 @@ MainUI: class {
     statusPass := Pass new(this, "status") // various info
     levelTitle: LabelSprite
     cashLabel: LabelSprite
+    homelessLabel: LabelSprite
 
     // mouse pass (cursor)
     mousePass := Pass new(this, "mouse")
@@ -107,6 +108,12 @@ MainUI: class {
         cashLabel fontSize = 30.0
         cashLabel color set!(1.0, 1.0, 1.0)
         statusPass addSprite(cashLabel)
+
+        homelessLabel = LabelSprite new(vec2(display getWidth() - 350, 30), "0 / ? homeless")
+        homelessLabel centered = true
+        homelessLabel fontSize = 30.0
+        homelessLabel color set!(1.0, 1.0, 1.0)
+        statusPass addSprite(homelessLabel)
    
         // offset to make the hand correspond with the actual mouse
         cursorImage := ImageSprite new(vec2(-12, -10), "assets/png/cursor.png") 
