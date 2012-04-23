@@ -3,12 +3,13 @@
 use gobject, cairo, sdl, deadlogger, ldkit
 
 // game deps
-import ldkit/[Display, Input, Math, Sprites]
+import ldkit/[Display, Input, Math, Sprites, Sound]
 import Pass, FlashMessages, Toolbar
 
 // libs deps
 import deadlogger/Log
 import zombieconfig
+import os/Time
 
 MainUI: class {
 
@@ -20,6 +21,9 @@ MainUI: class {
 
     // something we can read events from
     input: Input
+
+    // something we can make noise with
+    boombox: Boombox
 
     /*
      * Constructors
@@ -36,8 +40,19 @@ MainUI: class {
 
         input = Input new()
 
+        initSound()
         initPasses()
         initEvents()
+    }
+
+    bgMusic: Sample
+
+    initSound: func {
+        logger info("Initializing sound system")
+        boombox = Boombox new()
+
+        bgMusic = boombox load("assets/music/MistsOfTime.ogg")
+        boombox play(bgMusic)
     }
 
     // different UI passes
