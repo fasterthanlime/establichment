@@ -2,6 +2,12 @@
 
 ## Requirements
 
+### Assets
+
+Assets live in the following repo (clone it as 'assets' in the directory of establichment):
+
+  * <https://github.com/nddrylliog/establichment-assets>
+
 ### Compiler
 
 You need the latest rock:
