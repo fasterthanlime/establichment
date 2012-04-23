@@ -2,7 +2,7 @@
 // game deps
 import ui/MainUI
 import game/Engine
-import game/[Player, Citizen, Dataset, Terrain, Portal]
+import game/[Player, Alien, Dataset, Terrain, Portal]
 
 // libs deps
 import structs/[ArrayList]

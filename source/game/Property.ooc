@@ -5,7 +5,7 @@ import structs/ArrayList
 import deadlogger/Log
 
 // game deps
-import Citizen, Terrain, Level
+import Alien, Terrain, Level
 
 Property: class extends IsoThing {
 
@@ -30,9 +30,9 @@ Property: class extends IsoThing {
         every(slurpTime, ||
             if (tenants < places) {
                 level // workaround
-                findInBox(3, false, Citizen, |citz|
-                    logger info ("Found citizen %x around property %x!" format(citz, this)) 
-                    level remove(citz)
+                findInBox(3, false, Alien, |alien|
+                    logger info ("Found alien %x around property %x!" format(alien, this)) 
+                    level remove(alien)
                     tenants += 1
                 )
             }

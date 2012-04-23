@@ -5,7 +5,7 @@ import structs/ArrayList
 import deadlogger/Log
 
 // game deps
-import Citizen, Terrain, Level
+import Alien, Terrain, Level
 
 Portal: class extends OrientedIsoThing {
 
@@ -15,7 +15,7 @@ Portal: class extends OrientedIsoThing {
         super(level, dir)
 
         every(rate, ||
-            c := Citizen new(level)
+            c := Alien new(level)
             c setPos(pos x, pos y)
             c target set!(pos add(dir))
             level add(c)
