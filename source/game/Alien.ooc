@@ -33,7 +33,8 @@ Alien: class extends OrientedIsoThing {
             newTarget()
         }
 
-        pos add!(dir normalized() mul(speed))
+        dir set!(target sub(pos) normalized())
+        pos add!(dir mul(speed))
     }
 
     targetReached: func -> Bool {
@@ -41,13 +42,37 @@ Alien: class extends OrientedIsoThing {
     }
     
     newTarget: func {
-        // TODO: smarter moves, huh.
-        if (Random randInt(1, 2) == 1) {
-            target x += 1
-        } else {
-            target y += 1
+        good := false
+        newTarget := vec2(0, 0)
+
+        tries := 10
+        while (!good && tries > 0) {
+            tries -= 1
+            good = true
+
+            newTarget = target add(match (Random randInt(1, 4)) {
+                case 1 => vec2(1, 0)
+                case 2 => vec2(0, 1)
+                case 3 => vec2(-1, 0)
+                case   => vec2( 0, -1)
+            })
+
+            if (newTarget x >= level terrain width ||
+                newTarget x < 0 ||
+                newTarget y >= level terrain height ||
+                newTarget y < 0) {
+                good = false
+                continue
+            }
+            
+            findInRectangle(newTarget sub(0.5, 0.5), newTarget add(0.5, 0.5), true, IsoThing, |thing|
+               if (!thing instanceOf?(Alien)) good = false
+            )
         }
-        dir set!(target sub(pos) normalized())
+        logger info("Alrighty, new target %s it is! (width/height = %d, %d)" format(
+            newTarget _, level terrain width, level terrain height
+        ))
+        target set!(newTarget)
     }
 
 }

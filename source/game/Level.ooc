@@ -191,6 +191,7 @@ Level: class {
                     logger info("Dropping tower at %s" format(pos _))
                     tower pos set!(pos)
                     add(tower)
+                    ui boombox play(ui buildSound)
                 )
 
                 drp sprite add(LabelSprite new(vec2(0, 0), type))

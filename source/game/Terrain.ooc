@@ -69,7 +69,7 @@ IsoThing: class extends Thing {
     findInRectangle: func <T> (min, max: Vec2, findAll: Bool, T: Class, f: Func(T)) {
         // This is, like, inefficient. But levels are, like, small.
         // Then again, it's, like, my own opinion, man.
-        // logger info("Looking for %s in (%s, %s)" format(T name, min _, max _))
+        //logger info("Looking for %s in (%s, %s)" format(T name, min _, max _))
 
         for (thing in level things) {
             if (!thing instanceOf?(T)) continue

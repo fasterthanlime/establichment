@@ -6,6 +6,7 @@ import deadlogger/Log
 
 // game deps
 import Alien, Terrain, Level
+import ui/MainUI
 
 Property: class extends IsoThing {
 
@@ -32,7 +33,7 @@ Property: class extends IsoThing {
             if (tenants < places) {
                 level // workaround
                 findInBox(3, false, Alien, |alien|
-                    logger info ("Found alien %x around property %x!" format(alien, this)) 
+                    level ui boombox play(level ui landingSound)
                     level remove(alien)
                     tenants += 1
                 )
