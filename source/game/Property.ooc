@@ -14,6 +14,7 @@ Property: class extends IsoThing {
     tenants := 0
     tenantsLabel: LabelSprite
 
+    slurpTime := 15
     leaseTime := 30
     counter := 0
 
@@ -21,7 +22,17 @@ Property: class extends IsoThing {
         super(level)
 
         every(leaseTime, ||
-            if (tenants > 0) tenants -= 1
+            if (tenants > 0) {
+                tenants -= 1
+            }
+        )
+
+        every(slurpTime, ||
+            if (tenants < places) {
+                findInBox(3, false, Citizen, |citz|
+                    logger info ("Found citizen %x around property %x!" format(citz, this)) 
+                )
+            }
         )
     }
 

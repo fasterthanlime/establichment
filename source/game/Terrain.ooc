@@ -59,6 +59,31 @@ IsoThing: class extends Thing {
         loadSprite()
     }
 
+    findInBox: func <T> (side: Float, findAll: Bool, T: Class, f: Func(T)) {
+        half := side / 2
+        min := pos sub(side / 2, side / 2)
+        max := pos add(side / 2, side / 2)
+        findInRectangle(min, max, findAll, T, f)
+    }
+
+    findInRectangle: func <T> (min, max: Vec2, findAll: Bool, T: Class, f: Func(T)) {
+        // This is, like, inefficient. But levels are, like, small.
+        // Then again, it's, like, my own opinion, man.
+        // logger info("Looking for %s in (%s, %s)" format(T name, min _, max _))
+
+        for (thing in level things) {
+            if (!thing instanceOf?(T)) continue
+            match thing {
+                case th: IsoThing =>
+                    if (th pos x >= min x && th pos x <= max x &&
+                        th pos y >= min y && th pos y <= max y) {
+                        f(th)
+                        if (!findAll) break
+                    }
+            }
+        }
+    }
+
     loadSprite: func {
         // overload with your own stuff
         ls := LabelSprite new(vec2(0, 0), class name)
@@ -82,6 +107,7 @@ IsoThing: class extends Thing {
     }
 
     update: func {
+        super()
         logic()
         sprite pos set!(level terrain getScreenPos(pos))
     }

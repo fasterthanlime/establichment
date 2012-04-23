@@ -10,29 +10,20 @@ import Citizen, Terrain, Level
 Portal: class extends OrientedIsoThing {
 
     rate := 100
-    counter := 0
 
     init: func (.level, .dir) {
         super(level, dir)
 
-        counter = rate
+        every(rate, ||
+            c := Citizen new(level)
+            c setPos(pos x, pos y)
+            c target set!(pos add(dir))
+            level things add(c)
+        )
     }
 
     loadSprite: func {
         sprite add(loadIsoImage("assets/png/portal-x-100px.png"))
-    }
-
-    logic: func {
-        counter -= 1        
-        if (counter <= 0) {
-            c := Citizen new(level)
-            c setPos(pos x, pos y)
-            c target set!(pos add(dir))
-
-            level things add(c)
-
-            counter = rate
-        }
     }
 
 }
