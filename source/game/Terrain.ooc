@@ -167,7 +167,24 @@ Terrain: class {
     ] as ArrayList<String>
 
     getScreenPos: func (isopos: Vec2) -> Vec2 {
-            base add(xAxis mul(isopos x)) add(yAxis mul(isopos y))
+        base add(xAxis mul(isopos x)) add(yAxis mul(isopos y))
+    }
+
+    getIsoPos: func (screenpos: Vec2) -> Vec2 {
+        op := vec2(
+             screenpos x - base x,
+            (screenpos y - base y) * 2
+        )
+
+        // transform the x and y axis in a world where they are perpendicular
+        xa := vec2(xAxis x, xAxis y * 2)
+        ya := vec2(yAxis x, yAxis y * 2)
+
+        isopos := vec2(
+            op dot(xa normalized()) / xa norm(),
+            op dot(ya normalized()) / ya norm()
+        )
+        isopos
     }
 
     init: func (=ui) {
@@ -191,6 +208,19 @@ Terrain: class {
         }
 
         spawnRandomTiles()
+
+        // display axis
+        xLine := LineSprite new()
+        xLine color set!(1, 0, 0)
+        xLine start set!(base)
+        xLine end   set!(base add(xAxis))
+        pass addSprite(xLine)
+
+        yLine := LineSprite new()
+        yLine color set!(0, 1, 0)
+        yLine start set!(base)
+        yLine end   set!(base add(yAxis))
+        pass addSprite(yLine)
     }
 
     update: func {

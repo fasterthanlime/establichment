@@ -2,13 +2,14 @@
 // game deps
 import ui/MainUI
 import game/Engine
-import game/[Player, Alien, Dataset, Terrain, Portal]
+import game/[Player, Alien, Dataset, Terrain, Portal, Property]
+import game/[Dropper]
 
 // libs deps
 import structs/[ArrayList]
 import deadlogger/Log
 import math/Random
-import ldkit/[Math]
+import ldkit/[Math, Sprites]
 
 /**
  * Controls how the game unfolds.
@@ -118,7 +119,7 @@ Thing: class {
 }
 
 /**
- * A tiny, tiny world in itself: Switzerland :)
+ * THE LEVEL CLASS. 
  */
 
 Level: class {
@@ -179,6 +180,22 @@ Level: class {
     
         things each (|t| t update())
         player update(date)
+    }
+
+    drop: func (type: String) {
+        match type {
+            case "tower" =>
+                tower := Property new(this, 10)
+
+                drp := Dropper new(this, |pos|
+                    logger info("Dropping tower at %s" format(pos _))
+                    tower pos set!(pos)
+                    add(tower)
+                )
+
+                drp sprite add(LabelSprite new(vec2(0, 0), type))
+                drp sprite add(tower sprite)
+        }
     }
 
 } 

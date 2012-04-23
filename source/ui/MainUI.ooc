@@ -152,17 +152,17 @@ MainUI: class {
     createLeftToolbar: func -> Toolbar {
         tb := Toolbar new(this, vec2(160, 70), Placement WEST)
         tb add(Item new("Restart level", || engine reload()))
-        tb add(Item new("Previous level", || logger info("Should switch to prev level")))
-        tb add(Item new("Next level", || logger info("Should switch to next level")))
+        tb add(Item new("Previous level", || engine jumpLevel(-1) ))
+        tb add(Item new("Next level",     || engine jumpLevel(1) ))
         tb add(Item new("Exit", || exit(0)))
         tb
     }
 
     createRightToolbar: func -> Toolbar {
         tb := Toolbar new(this, vec2(140, 140), Placement EAST)
-        tb add(Item new("Tree", || logger info("Should start tree planting")))
-        tb add(Item new("House", || logger info("Should start house planting")))
-        tb add(Item new("Tower", || logger info("Should start tower planting")))
+        tb add(Item new("Tree",  || engine level drop("tree")))
+        tb add(Item new("House", || engine level drop("house")))
+        tb add(Item new("Tower", || engine level drop("tower")))
         tb
     }
 
@@ -182,7 +182,7 @@ MainUI: class {
 
     initEvents: func {
         // it's a better practice to turn on debug locally
-        input debug = true
+        //input debug = true
 
         input onExit(||
             // just exit bluntly. Let's rely on the OS to free all the resources :D

@@ -56,6 +56,10 @@ Engine: class {
         load(currentLevel)
     }
 
+    jumpLevel: func (offset: Int) {
+        "Should jumplevel (%d)" printfln(offset)
+    }
+
 }
 
 

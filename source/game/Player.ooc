@@ -15,12 +15,14 @@ Player: class {
     cash := 3000
 
     init: func(=level, =name) {
+        /*
         for(i in 0..3) {
             p := Property new(level, 10)
             p pos set!(Random randRange(0, level terrain width),
                        Random randRange(0, level terrain height))
             level add(p)
         }
+        */
     }
 
     update: func (date: GameDate) {
