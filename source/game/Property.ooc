@@ -13,6 +13,7 @@ Property: class extends IsoThing {
 
     tenants := 0
     tenantsLabel: LabelSprite
+    glowingBulb: EllipseSprite
 
     slurpTime := 15
     leaseTime := 150
@@ -40,20 +41,35 @@ Property: class extends IsoThing {
     }
 
     loadSprite: func {
+        offset := vec2(level terrain tileWidth, -65)
+
+        glowingBulb = EllipseSprite new(offset)
+        glowingBulb filled = true
+        glowingBulb alpha = 0.7
+        sprite add(glowingBulb)
+
         sprite add(loadIsoImage("assets/png/phaser-100px.png"))
 
-        tenantsLabel = LabelSprite new(vec2(level terrain tileWidth, -30), "")
-        tenantsLabel color set!(0.9, 0.9, 0.9)
+        tenantsLabel = LabelSprite new(offset, "")
+        tenantsLabel fontSize = 18
+        tenantsLabel color set!(0.1, 0.3, 0.7)
         tenantsLabel centered = true
-        sprite add(tenantsLabel)
+        // sprite add(tenantsLabel)
     }
 
     updateLabel: func {
-        tenantsLabel setText("%d / %d" format(tenants, places))
+        percentage := tenants * 100 / places
+        radius := level terrain tileWidth * (0.5 + percentage / 200.0)
+
+        glowingBulb radius = radius
+        // glowingBulb pos set!(-radius * 0.5, -radius * 0.5)
+        glowingBulb color set!(percentage / 200.0, 0.3, 0.3)
+
+        tenantsLabel setText("%d%%" format(percentage))
+        tenantsLabel color set!(percentage / 200.0, 0.3, 0.3)
     }
 
     logic: func {
-        // TODO: optimize
         updateLabel()
     }
 
