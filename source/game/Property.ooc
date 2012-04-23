@@ -17,7 +17,7 @@ Property: class extends IsoThing {
     glowingBulb: EllipseSprite
 
     slurpTime := 15
-    leaseTime := 150
+    leaseTime := 100
     counter := 0
 
     init: func (.level, =places) {

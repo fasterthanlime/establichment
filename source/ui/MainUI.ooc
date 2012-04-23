@@ -174,6 +174,7 @@ MainUI: class {
     }
 
     update: func {
+        boombox update()
         flashMessages update()
 
         display clear()
