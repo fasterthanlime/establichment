@@ -59,8 +59,6 @@ MainUI: class {
         input onMousePress(1, || boombox play(clickSound))
 
         startSound = boombox load("assets/sounds/gamestart.ogg")
-        boombox play(startSound)
-
         buildSound = boombox load("assets/sounds/build.ogg")
     }
 

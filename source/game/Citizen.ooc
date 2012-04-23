@@ -18,11 +18,11 @@ Citizen: class {
 
     isopos := vec2(0.0, 0.0)
     isodst := vec2(0.0, 0.0)
-    isodir := vec2(1.0, 0.0)
+    isodir := vec2(0.0, 0.0)
 
     sprite: GroupSprite
 
-    speed := 0.05
+    speed := 0.01
 
     terrain: Terrain
     
@@ -39,6 +39,11 @@ Citizen: class {
         sprite add(ls)
 
         terrain pass2 addSprite(sprite)
+    }
+
+    setPos: func (x, y: Float) {
+        isopos set!(x, y)
+        isodst set!(x, y)
     }
 
     targetReached: func -> Bool {

@@ -28,7 +28,6 @@ Property: class {
 
         sprite = GroupSprite new()
 
-        sprite pos set!(terrain getScreenPos(isopos))        
         is := ImageSprite new(vec(0, 0), "assets/png/tower-100px.png")
         is pos set!(0, - (is height - terrain tileHeight))
         sprite add(is)
@@ -36,8 +35,9 @@ Property: class {
         terrain pass2 addSprite(sprite)
     }
 
-    update: func (date: GameDate) {
+    update: func {
         // TODO: do stuff
+        sprite pos set!(terrain getScreenPos(isopos))        
     }
 
     toString: func -> String {

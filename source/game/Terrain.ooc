@@ -56,6 +56,10 @@ Terrain: class {
         spawnRandomTiles()
     }
 
+    update: func {
+        pass2 sprites sort(|s1, s2| s1 pos y > s2 pos y)
+    }
+
     spawnRandomTiles: func {
         // lay terrain tiles
         for(x in 0..width) for (y in 0..height) {

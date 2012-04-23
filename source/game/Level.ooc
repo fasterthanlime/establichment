@@ -94,9 +94,10 @@ Level: class {
 
     spawnCitizens: func {
         // test code
-        dummyIncome := 3000
-        for (i in 0..1) {
+        for (i in 0..5) {
             c := Citizen new(terrain)
+            c setPos(Random randRange(0, 2), Random randRange(0, 2))
+
             citizens add(c)
         }
 
@@ -109,20 +110,14 @@ Level: class {
     }
 
     ticks: Long = 0
-    DAY_LENGTH := 2
 
     update: func {
-        ticks += 1
-        if (ticks >= DAY_LENGTH) {
-            ticks = 0
-            date update()
-        
-            citizens each (|c| c update(date))
-            players each (|p| p update(date))
-        
-            // TODO: make citizen die and breed
-            citizenHistory add(date, citizens size) 
-        }
+        terrain update()
+
+        date update()
+    
+        citizens each (|c| c update(date))
+        players each (|p| p update(date))
     }
 
 } 
