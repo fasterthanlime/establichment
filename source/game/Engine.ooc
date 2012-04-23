@@ -5,6 +5,7 @@ import game/[Level, LevelLoader]
 
 // libs deps
 import sdl/Sdl // for timeouts
+import structs/[ArrayList]
 
 import ldkit/Timing
 use zombieconfig
@@ -14,14 +15,23 @@ Engine: class {
 
     ui: MainUI
     level: Level
-    currentLevel := ""
 
     FPS := 30.0 // let's target 30FPS
+
+    levelName: String
+    levelIndex := 0
+    levelNames := [
+        "Ticino" 
+        "St. Gall"
+        "Zuerich"
+        "Romandy"
+    ] as ArrayList<String>
 
     init: func(config: ZombieConfig) {
         ui = MainUI new(this, config)
 
-        load(config["startLevel"])
+        levelName = levelNames[levelIndex]
+        load(levelName)
 
         ticks: Int
         delta := 1000.0 / 30.0 // try 30FPS
@@ -41,23 +51,25 @@ Engine: class {
         }
     }
 
-    load: func (levelName: String) {
+    load: func (name: String) {
         if (level) {
             ui reset()
         }
 
-        currentLevel = levelName
+        levelName = name
         loader := LevelLoader new(this)
-        level = loader load(levelName)
+        level = loader load(name)
         level setup()
     }
 
     reload: func {
-        load(currentLevel)
+        load(levelName)
     }
 
     jumpLevel: func (offset: Int) {
-        "Should jumplevel (%d)" printfln(offset)
+        levelIndex += offset
+        levelIndex = levelIndex % (levelNames size)
+        load(levelNames[levelIndex])
     }
 
 }

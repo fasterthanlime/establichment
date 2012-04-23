@@ -15,14 +15,37 @@ LevelLoader: class extends Loader {
     init: func (=engine)
 
     load: func (levelName: String) -> Level {
-        path := "assets/levels/%s.json" format(levelName)
-        json := readJSON(path)
+        logger info("Loading level %s" format(levelName))
 
         level := Level new(engine)
-        level name = json get("name", String)
-        level welcomeMessage = json get("welcomeMessage", String)
+        level name = levelName
+        level welcomeMessage = "Good luck!"
+
+        // I am so ashamed of this.. hardcoded levels
+        match (levelName) {
+            case "Ticino" => loadTicino(level)
+            case "St. Gall" => loadStGall(level)
+            case "Zuerich" => loadZuerich(level)
+            case "Romandy" => loadRomandy(level)
+        }
 
         level
+    }
+
+    loadTicino: func (level: Level) {
+
+    }
+
+    loadStGall: func (level: Level) {
+
+    }
+
+    loadZuerich: func (level: Level) {
+
+    }
+
+    loadRomandy: func (level: Level) {
+
     }
 
 }
