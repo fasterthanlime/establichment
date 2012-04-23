@@ -11,6 +11,8 @@ Player: class {
 
     name: String
     level: Level
+
+    counter := 0
     
     cash := 600
 
@@ -18,7 +20,12 @@ Player: class {
     }
 
     update: func (date: GameDate) {
-        // TODO: update cash?
+        counter += 1
+        if (counter >= 60) {
+            counter = 0
+            cash += 20 // huhu
+        }
+
         level ui cashLabel setText("%d CHF" format(cash))
     }
 
