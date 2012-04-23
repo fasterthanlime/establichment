@@ -5,6 +5,112 @@ import ui/[MainUI, Graphics, Pass]
 import math/Random, structs/ArrayList
 import ldkit/[Math, Sprites]
 
+import Level
+
+Orientation: enum {
+    RIGHT
+    UP
+    LEFT
+    DOWN
+}
+
+orientation2string: func (o: Orientation) -> String {
+    match o {
+        case Orientation RIGHT => "right"
+        case Orientation UP    => "up"
+        case Orientation LEFT  => "left"
+        case Orientation DOWN  => "down"
+    }
+}
+
+orientation2vec: func (o: Orientation) -> Vec2 {
+    match o {
+        case Orientation RIGHT => vec2( 1,  0)
+        case Orientation UP    => vec2( 0,  1)
+        case Orientation LEFT  => vec2(-1,  0)
+        case Orientation DOWN  => vec2( 0, -1)
+    }
+}
+
+vec2orientation: func (v: Vec2) -> Orientation {
+    match {
+        case v x < EPSILON => match {
+            case v y < 0 => Orientation DOWN
+            case         => Orientation UP
+        }
+        case => match {
+            case v x < 0 => Orientation LEFT
+            case         => Orientation RIGHT
+        }
+    }
+}
+
+IsoThing: class extends Thing {
+    
+    level: Level
+    pos := vec2(0.0, 0.0)
+
+    sprite: GroupSprite
+
+    init: func (=level) {
+        sprite = GroupSprite new()
+        level terrain pass2 addSprite(sprite)
+
+        loadSprite()
+    }
+
+    loadSprite: func {
+        // overload with your own stuff
+        ls := LabelSprite new(vec2(0, 0), class name)
+        sprite add(ls)
+    }
+
+    loadIsoImage: func (path: String) -> Sprite {
+        is := ImageSprite new(vec2(0, 0),path)
+        is pos set!(0, - (is height - level terrain tileHeight))
+        is
+    }
+
+    setPos: func ~vec (v: Vec2) {
+        pos set!(v)
+        sprite pos set!(level terrain getScreenPos(pos))
+    }
+
+    setPos: func ~floats (x, y: Float) {
+        pos set!(x, y)
+        sprite pos set!(level terrain getScreenPos(pos))
+    }
+
+    update: func {
+        logic()
+        sprite pos set!(level terrain getScreenPos(pos))
+    }
+
+    logic: func {
+        // please override this one instead, or call super on update
+    }
+
+}
+
+OrientedIsoThing: class extends IsoThing {
+
+    dir := vec2(1.0, 0.0)
+
+    init: func (.level, .dir) {
+        super(level)
+        dir set!(dir)
+    }
+
+    getDirection: func -> Vec2 {
+        dir
+    }
+
+    getOrientation: func -> Orientation {
+        vec2orientation(dir)
+    }
+
+}
+
 Terrain: class {
 
     width := 8

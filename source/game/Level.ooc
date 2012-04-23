@@ -8,6 +8,7 @@ import game/[Player, Citizen, Dataset, Terrain, Portal]
 import structs/[ArrayList]
 import deadlogger/Log
 import math/Random
+import ldkit/[Math]
 
 /**
  * Controls how the game unfolds.
@@ -52,6 +53,62 @@ withProbability: func (proba: Float, cb: Func) {
     }
 }
 
+Orientation: enum {
+    RIGHT
+    UP
+    LEFT
+    DOWN
+}
+
+orientation2string: func (o: Orientation) -> String {
+    match o {
+        case Orientation RIGHT => "right"
+        case Orientation UP    => "up"
+        case Orientation LEFT  => "left"
+        case Orientation DOWN  => "down"
+    }
+}
+
+orientation2vec: func (o: Orientation) -> Vec2 {
+    match o {
+        case Orientation RIGHT => vec2( 1,  0)
+        case Orientation UP    => vec2( 0,  1)
+        case Orientation LEFT  => vec2(-1,  0)
+        case Orientation DOWN  => vec2( 0, -1)
+    }
+}
+
+vec2orientation: func (v: Vec2) -> Orientation {
+    match {
+        case v x < EPSILON => match {
+            case v y < 0 => Orientation DOWN
+            case         => Orientation UP
+        }
+        case => match {
+            case v x < 0 => Orientation LEFT
+            case         => Orientation RIGHT
+        }
+    }
+}
+
+Thing: class {
+
+    logger := static Log getLogger(This name)
+
+    init: func {
+        // definitely overload this one
+    }
+
+    update: func {
+        // do what you want cause a pirate is free
+    }
+
+    destroy: func {
+        // overload if you wanna do special stuff here
+    }
+
+}
+
 /**
  * A tiny, tiny world in itself: Switzerland :)
  */
@@ -71,12 +128,8 @@ Level: class {
     ui: MainUI
 
     // each player controls a part of the world
-    mainPlayer: Player
-    players := ArrayList<Player> new()
-
-    citizens := ArrayList<Citizen> new()
-    portals := ArrayList<Portal> new()
-
+    player: Player
+    things := ArrayList<Thing> new()
     terrain: Terrain
 
     init: func (=engine) {
@@ -84,34 +137,17 @@ Level: class {
     
         terrain = Terrain new(ui)
 
-        // single-player mode: test code
-        mainPlayer = Player new(this, "Gob")
-        players add(mainPlayer)
-
+        player = Player new(this, "William Tell")
         spawnPortals()
-        spawnCitizens()
     }
 
     spawnPortals: func {
-        for (i in 0..5) {
-            p := Portal new(terrain)
-            p setPos(Random randRange(0, 2), Random randRange(0, 2))
+        for (i in 0..3) {
+            p := Portal new(this, orientation2vec(Orientation LEFT))
+            p setPos(Random randRange(0, terrain width), Random randRange(0, terrain height))
 
-            portals add(p)
+            things add(p)
         }
-
-        logger info("Added %d portals." format(portals size))
-    }
-
-    spawnCitizens: func {
-        for (i in 0..5) {
-            c := Citizen new(terrain)
-            c setPos(Random randRange(0, 2), Random randRange(0, 2))
-
-            citizens add(c)
-        }
-
-        logger info("Added %d citizens." format(citizens size))
     }
 
     setup: func {
@@ -119,17 +155,13 @@ Level: class {
         ui flash(welcomeMessage)
     }
 
-    ticks: Long = 0
-
     update: func {
-        terrain update()
-
         date update()
-    
-        portals each (|p| p update())
 
-        citizens each (|c| c update(date))
-        players each (|p| p update(date))
+        terrain update()
+    
+        things each (|t| t update())
+        player update(date)
     }
 
 } 

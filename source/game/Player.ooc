@@ -14,23 +14,18 @@ Player: class {
     
     cash := 3000
 
-    properties := ArrayList<Property> new()
-
     init: func(=level, =name) {
-        // test code: add a property for fun
-        for(i in 0..5) {
-            p := Property new(level terrain, 10)
-            p isopos set!(Random randRange(0, level terrain width),
-                          Random randRange(0, level terrain height))
-            properties add(p)
+        for(i in 0..3) {
+            p := Property new(level, 10)
+            p pos set!(Random randRange(0, level terrain width),
+                       Random randRange(0, level terrain height))
+            level things add(p)
         }
     }
 
     update: func (date: GameDate) {
         // TODO: update cash?
         level ui cashLabel setText("%d CHF" format(cash))
-        
-        properties each(|p| p update())
     }
 
 }

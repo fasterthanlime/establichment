@@ -7,41 +7,16 @@ import deadlogger/Log
 // game deps
 import Citizen, Terrain, Level
 
-Property: class {
-
-    logger := static Log getLogger(This name)
-
-    id: Int
-    idSeed := static 1
-
-    isopos := vec2(0.0, 0.0)
-
-    sprite: GroupSprite
+Property: class extends IsoThing {
 
     places: Int
 
-    terrain: Terrain
-
-    init: func (=terrain, =places) {
-        id = idSeed
-        idSeed += 1 
-
-        sprite = GroupSprite new()
-
-        is := ImageSprite new(vec(0, 0), "assets/png/phaser-100px.png")
-        is pos set!(0, - (is height - terrain tileHeight))
-        sprite add(is)
-
-        terrain pass2 addSprite(sprite)
+    init: func (.level, =places) {
+        super(level)
     }
 
-    update: func {
-        // TODO: do stuff
-        sprite pos set!(terrain getScreenPos(isopos))        
-    }
-
-    toString: func -> String {
-        "Property %d" format(id)
+    loadSprite: func {
+        sprite add(loadIsoImage("assets/png/phaser-100px.png"))
     }
 
 }

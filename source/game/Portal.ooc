@@ -7,44 +7,32 @@ import deadlogger/Log
 // game deps
 import Citizen, Terrain, Level
 
-Portal: class {
+Portal: class extends OrientedIsoThing {
 
-    logger := static Log getLogger(This name)
+    rate := 100
+    counter := 0
 
-    id: Int
-    idSeed := static 1
+    init: func (.level, .dir) {
+        super(level, dir)
 
-    isopos := vec2(0.0, 0.0)
-
-    sprite: GroupSprite
-
-    terrain: Terrain
-
-    init: func (=terrain) {
-        id = idSeed
-        idSeed += 1 
-
-        sprite = GroupSprite new()
-
-        is := ImageSprite new(vec(0, 0), "assets/png/portal-x-100px.png")
-        is pos set!(0, - (is height - terrain tileHeight))
-        sprite add(is)
-
-        terrain pass2 addSprite(sprite)
+        counter = rate
     }
 
-    setPos: func (x, y: Int) {
-        isopos set!(x, y)
-        update()
+    loadSprite: func {
+        sprite add(loadIsoImage("assets/png/portal-x-100px.png"))
     }
 
-    update: func {
-        // TODO: spawn citizens once and then
-        sprite pos set!(terrain getScreenPos(isopos))        
-    }
+    logic: func {
+        counter -= 1        
+        if (counter <= 0) {
+            c := Citizen new(level)
+            c setPos(pos x, pos y)
+            c target set!(pos add(dir))
 
-    toString: func -> String {
-        "Property %d" format(id)
+            level things add(c)
+
+            counter = rate
+        }
     }
 
 }
