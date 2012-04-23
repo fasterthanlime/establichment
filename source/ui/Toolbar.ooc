@@ -62,6 +62,7 @@ Toolbar: class {
             point := ui input mousepos
             items each(|item|
                 if(item rect containsPoint(point)) {
+                    ui boombox play(ui clickSound)
                     item _changeState(ItemState PRESSED)
                 }
             )

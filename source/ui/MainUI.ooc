@@ -60,7 +60,6 @@ MainUI: class {
         boombox play(bgMusic)
 
         clickSound = boombox load("assets/sounds/click.ogg")
-        input onMousePress(1, || boombox play(clickSound))
 
         startSound = boombox load("assets/sounds/gamestart.ogg")
         buildSound = boombox load("assets/sounds/build.ogg")
