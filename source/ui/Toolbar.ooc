@@ -180,11 +180,19 @@ Item: class {
         rect  size set!(width, height) 
     }
 
+    hasPressed := false
+
     _changeState: func (.state) {
-        if(this state == ItemState PRESSED && state == ItemState IDLE) {
-            onPress()
-        }
         this state = state
+
+        if(state == ItemState PRESSED) {
+            hasPressed = true
+        }
+
+        if(state == ItemState IDLE && hasPressed) {
+            onPress()
+            hasPressed = false
+        }
 
         rect color set!(colors get(state))
     }
