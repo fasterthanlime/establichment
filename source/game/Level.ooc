@@ -220,6 +220,7 @@ Level: class {
     update: func {
         date update()
         ui dateLabel setText("Day %d" format(date getActualDay()))
+        ui deathLabel setText("%d deaths" format(deathCount))
 
         terrain update()
     
@@ -279,7 +280,7 @@ Level: class {
     }
 
     dropBuildable: func (buildable: Buildable) {
-        if (player cash <= buildable cost) {
+        if (player cash < buildable cost) {
             ui boombox play(ui nopeSound)
             buildable destroy()
         } else {

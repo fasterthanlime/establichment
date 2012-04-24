@@ -37,7 +37,7 @@ Tower: class extends Buildable {
             if (tenants < places) {
                 level // workaround
                 findInBox(3, false, Alien, |alien|
-                    level ui boombox play(level ui landingSound)
+                    level ui boombox play(level ui zapSound)
                     level player cash += alien reward
                     level remove(alien)
                     tenants += 1
@@ -166,7 +166,7 @@ House: class extends Buildable {
             if (tenants < places) {
                 level // workaround
                 findInBox(3, false, Alien, |alien|
-                    level ui boombox play(level ui landingSound)
+                    level ui boombox play(level ui criekSound)
                     level player cash += alien reward
                     level remove(alien)
                     tenants += 1

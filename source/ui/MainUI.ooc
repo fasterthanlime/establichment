@@ -51,7 +51,7 @@ MainUI: class {
 
     bgMusic: Sample
     clickSound, startSound, buildSound, landingSound: Sample
-    nopeSound: Sample
+    nopeSound, arghSound, criekSound, zapSound: Sample
 
     initSound: func {
         logger info("Initializing sound system")
@@ -66,6 +66,9 @@ MainUI: class {
         buildSound = boombox load("assets/sounds/build.ogg")
         landingSound = boombox load("assets/sounds/landing.ogg")
         nopeSound = boombox load("assets/sounds/nope.ogg")
+        arghSound = boombox load("assets/sounds/argh.ogg")
+        zapSound = boombox load("assets/sounds/zap.ogg")
+        criekSound = boombox load("assets/sounds/criek.ogg")
     }
 
     // different UI passes

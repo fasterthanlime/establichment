@@ -1,11 +1,12 @@
 
 // libs deps
 use ldkit
-import ldkit/Loader
+import ldkit/[Loader, Math]
+import structs/[ArrayList]
 import deadlogger/Log
 
 // game deps
-import Level, Engine, Player, Buildables
+import Level, Engine, Player, Buildables, Terrain, Portal
 
 LevelLoader: class extends Loader {
 
@@ -35,31 +36,70 @@ LevelLoader: class extends Loader {
     }
 
     loadTicino: func (level: Level) {
-        level maxHomeless = 100
-        level player cash = 1000
+        level maxHomeless = 50
+        level player cash = 200
         level objective = "Survive for 30 days"
         level winConditions add(SurvivedLongEnough new(30))
     }
 
     loadStGall: func (level: Level) {
-        level maxHomeless = 80
-        level player cash = 500
+        level maxHomeless = 30
+        level player cash = 200
         level objective = "Earn 3000 CHF"
         level winConditions add(EarnAtLeast new(3000))
+
+        // spawn a few lavas
+        positions := [
+            vec2(1, 5)
+            vec2(5, 1)
+        ] as ArrayList<Vec2>
+
+        for (p in positions) {
+            l := Lava new(level)
+            l pos set!(p)
+            level add(l)
+        }
+
+        positions = [
+            vec2(3, 5)
+            vec2(7, 5)
+        ] as ArrayList<Vec2>
+
+        for (p in positions) {
+            l := Portal new(level, orientation2vec(Orientation LEFT))
+            l pos set!(p)
+            level add(l)
+        }
     }
 
     loadZuerich: func (level: Level) {
-        level maxHomeless = 40
+        level maxHomeless = 20
         level player cash = 300
         level objective = "Build 5 towers"
         level winConditions add(HaveNThings new(5, Tower))
     }
 
     loadRomandy: func (level: Level) {
-        level maxHomeless = 20
-        level player cash = 200
-        level objective = "Don't let any homeless die (unfinished level :()"
-        level winConditions add(ZeroDeath new())
+        level maxHomeless = 50
+        level player cash = 500
+
+        // spawn a few lavas
+        positions := [
+            vec2(2, 4)
+            vec2(2, 6)
+            vec2(7, 4)
+            vec2(7, 6)
+        ] as ArrayList<Vec2>
+
+        for (p in positions) {
+            l := Lava new(level)
+            l pos set!(p)
+            level add(l)
+        }
+
+        level objective = "Don't let any homeless die for 200 days"
+        level lossConditions add(ZeroDeath new())
+        level winConditions add(SurvivedLongEnough new(200))
     }
 
 }
@@ -130,10 +170,7 @@ HaveNThings: class extends Condition {
 
 ZeroDeath: class extends Condition {
 
-    count: Int
-    type: Class
-
-    init: func (=count, =type)
+    init: func ()
 
     isTrue: func (l: Level) -> Bool {
         l deathCount > 0

@@ -5,13 +5,14 @@ import ldkit/[Math, Sprites]
 import math/Random
 
 // game deps
-import Level, Terrain, ui/Graphics
+import Level, Terrain, Buildables, Player
+import ui/[MainUI, Graphics]
 
 Alien: class extends OrientedIsoThing {
 
     target := vec2(0.0, 0.0)
 
-    reward := 100
+    reward := 40
 
     epsilon := static 0.1
     speed := 0.03
@@ -34,6 +35,12 @@ Alien: class extends OrientedIsoThing {
         if (targetReached()) {
             newTarget()
         }
+
+        findInBox(1, false, Lava, |lava|
+            level ui boombox play(level ui arghSound)
+            level remove(this)
+            level deathCount += 1
+        )
 
         dir set!(target sub(pos) normalized())
         pos add!(dir mul(speed))
@@ -68,7 +75,7 @@ Alien: class extends OrientedIsoThing {
             }
             
             findInRectangle(newTarget sub(0.5, 0.5), newTarget add(0.5, 0.5), true, IsoThing, |thing|
-               if (!thing instanceOf?(Alien)) good = false
+               if (!(thing instanceOf?(Alien) || thing instanceOf?(Lava))) good = false
             )
         }
         // logger info("Alrighty, new target %s it is! (width/height = %d, %d)" format(
