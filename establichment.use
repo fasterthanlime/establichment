@@ -2,3 +2,15 @@ Name: establichment
 Description: game in ooc for Ludum Dare 23
 SourcePath: source
 Main: establichment.ooc
+
+# TODO: move most deps to ldkit
+Depends: git://github.com/nddrylliog/ldkit.git
+Depends: git://github.com/nddrylliog/zombieconfig.git
+Depends: git://github.com/fredreichbier/deadlogger.git
+Depends: git://github.com/nddrylliog/ooc-gobject.git
+Depends: git://github.com/eagle2com/ooc-sdl.git
+Depends: git://github.com/nddrylliog/ooc-cairo.git
+Depends: git://github.com/nddrylliog/ooc-freetype2.git
+Depends: git://github.com/nddrylliog/alut-ooc.git
+Depends: git://github.com/nddrylliog/openal-ooc.git
+Depends: git://github.com/nddrylliog/vorbis-ooc.git

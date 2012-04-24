@@ -3,4 +3,5 @@ establichment
 
 # Ignore .libs files and rock_tmp (output of the compiler)
 .libs
+libs/*
 rock_tmp

@@ -16,18 +16,8 @@ You need the latest rock:
 
 ### Libs
 
-Put these in your `OOC_LIBS`:
-
-  * <https://github.com/nddrylliog/ldkit>
-  * <https://github.com/nddrylliog/zombieconfig>
-  * <https://github.com/fredreichbier/deadlogger>
-  * <https://github.com/nddrylliog/ooc-gobject>
-  * <https://github.com/eagle2com/ooc-sdl>
-  * <https://github.com/nddrylliog/ooc-cairo>
-  * <https://github.com/nddrylliog/ooc-freetype2>
-  * <https://github.com/nddrylliog/alut-ooc>
-  * <https://github.com/nddrylliog/openal-ooc>
-  * <https://github.com/nddrylliog/vorbis-ooc>
+Dependencies are listed in `establichment.use`, you can use grab-deps.sh to
+clone them all at once!
 
 ## How to build
 
