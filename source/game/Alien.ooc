@@ -11,7 +11,7 @@ Alien: class extends OrientedIsoThing {
 
     target := vec2(0.0, 0.0)
 
-    reward := 20
+    reward := 100
 
     epsilon := static 0.1
     speed := 0.03

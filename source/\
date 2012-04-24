@@ -10,7 +10,7 @@ import game/[Dropper]
 import structs/[ArrayList]
 import deadlogger/Log
 import math/Random
-import ldkit/[Math, Sprites, Input]
+import ldkit/[Math, Sprites]
 
 /**
  * Controls how the game unfolds.
@@ -39,7 +39,7 @@ GameDate: class {
     }
 
     getActualDay: func -> Int {
-        (day / 30) + 1
+        day- day % 30
     }
 
 }
@@ -149,7 +149,6 @@ Level: class {
     name := "<no name>"
     welcomeMessage := "level started!"
     objective := "Don't let the homeless surround you!"
-    deathCount := 0
 
     // something used to display the world and manipulate it
     ui: MainUI
@@ -159,9 +158,6 @@ Level: class {
     things := ArrayList<Thing> new()
     terrain: Terrain
 
-    won := false
-    lost := false
-
     init: func (=engine) {
         ui = engine ui 
     
@@ -169,37 +165,23 @@ Level: class {
 
         player = Player new(this, "William Tell")
         spawnPortals()
-
-        ui input onKeyPress(Keys F12, ||
-            logger info("Cheater!")
-            player cash += 1000
-        )
-
-        ui input onKeyPress(Keys F11, ||
-            logger info("Cheater!")
-            date day += 30 * 10
-        )
     }
 
     spawnPortals: func {
         for (i in 0..1) {
             p := Portal new(this, orientation2vec(Orientation LEFT))
-            p setPos(terrain width / 2, terrain height / 2)
+            p setPos(Random randRange(0, terrain width), Random randRange(0, terrain height))
 
             add(p)
         }
     }
 
-    countThing: func (T: Class) -> Int {
+    countHomeless: func -> Int {
         count := 0
         for (t in things) {
-            if (t instanceOf?(T)) count += 1
+            if (t instanceOf?(Alien)) count += 1
         }
         count
-    }
-
-    countHomeless: func -> Int {
-        countThing(Alien)
     }
 
     add: func (t: Thing) {
@@ -213,13 +195,12 @@ Level: class {
 
     setup: func {
         ui levelTitle setText(name)
-        ui objectiveLabel setText(objective)
         ui flash(welcomeMessage)
     }
 
     update: func {
         date update()
-        ui dateLabel setText("Day %d" format(date getActualDay()))
+        ui dateLabel setText("day %d" format(date getActualDay()))
 
         terrain update()
     
@@ -233,26 +214,17 @@ Level: class {
             maxHomeless
         ))
     
-
-        if(won || lost) {
-            // all good
-        } else {
-            for (lc in lossConditions) {
-                if (lc isTrue(this)) {
-                    logger info("Lost because of %s" format(lc getMessage()))
-                    ui flash(lc getMessage())
-                    in(4 * 30, || engine reload())
-                    lost = true
-                }
+        for (lc in lossConditions) {
+            if (lc isTrue(this)) {
+                ui flash(lc getMessage())
+                in(30, || engine reload())
             }
+        }
 
-            for (wc in winConditions) {
-                if (wc isTrue(this)) {
-                    logger info("Won because of %s" format(wc getMessage()))
-                    ui flash(wc getMessage())
-                    in(4 * 30, || engine jumpLevel(1))
-                    won = true
-                }
+        for (wc in winConditions) {
+            if (wc isTrue(this)) {
+                ui flash(wc getMessage())
+                in(30, || engine jumpLevel(1))
             }
         }
     }

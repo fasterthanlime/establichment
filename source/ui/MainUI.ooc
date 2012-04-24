@@ -79,7 +79,9 @@ MainUI: class {
     // status sprites
     statusPass := Pass new(this, "status") // various info
     levelTitle: LabelSprite
+    dateLabel: LabelSprite
     cashLabel: LabelSprite
+    objectiveLabel: LabelSprite
     homelessLabel: LabelSprite
 
     // mouse pass (cursor)
@@ -97,11 +99,16 @@ MainUI: class {
         bgPos := vec2(display getWidth() - 1920, display getHeight() - 1080)
         bgPass addSprite(ImageSprite new(bgPos, "assets/png/background-placeholder.png"))
 
-        levelTitle = LabelSprite new(vec2(100, 30), "<level name>")
+        levelTitle = LabelSprite new(vec2(40, 35), "<level name>")
         levelTitle color set!(1.0, 1.0, 1.0)
-        levelTitle centered = true
         levelTitle fontSize = 30.0
         statusPass addSprite(levelTitle)
+
+        dateLabel = LabelSprite new(vec2(display getWidth() - 100, 70), "Day 0")
+        dateLabel color set!(1.0, 1.0, 1.0)
+        dateLabel centered = true
+        dateLabel fontSize = 30.0
+        statusPass addSprite(dateLabel)
 
         cashLabel = LabelSprite new(vec2(display getWidth() - 100, 30), "0 CHF")
         cashLabel centered = true
@@ -114,6 +121,11 @@ MainUI: class {
         homelessLabel fontSize = 30.0
         homelessLabel color set!(1.0, 1.0, 1.0)
         statusPass addSprite(homelessLabel)
+
+        objectiveLabel = LabelSprite new(vec2(40, 80), "<level objective>")
+        objectiveLabel fontSize = 30.0
+        objectiveLabel color set!(1.0, 1.0, 0.4)
+        statusPass addSprite(objectiveLabel)
    
         // offset to make the hand correspond with the actual mouse
         cursorImage := ImageSprite new(vec2(-12, -10), "assets/png/cursor.png") 
