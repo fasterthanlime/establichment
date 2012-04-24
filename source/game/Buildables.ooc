@@ -219,3 +219,22 @@ Tree: class extends Buildable {
 
 }
 
+
+/*
+ * LAVA !
+ */
+
+Lava: class extends Buildable {
+
+    init: func (.level) {
+        super(level)
+
+        cost = 100
+    }
+
+    loadSprite: func {
+        sprite add(loadIsoImage("assets/png/lava.png"))
+    }
+
+}
+

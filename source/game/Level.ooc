@@ -213,7 +213,7 @@ Level: class {
 
     setup: func {
         ui levelTitle setText(name)
-        ui objectiveLabel setText(objective)
+        ui objectiveLabel setText("Objective: " + objective)
         ui flash(welcomeMessage)
     }
 

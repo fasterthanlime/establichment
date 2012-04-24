@@ -173,8 +173,7 @@ Terrain: class {
     xAxis, yAxis: Vec2
 
     tileTypes := [
-        "concrete", "concrete", "concrete", "concrete", "concrete", "concrete", "concrete", "concrete", 
-        "lava"
+        "concrete"
     ] as ArrayList<String>
 
     getScreenPos: func (isopos: Vec2) -> Vec2 {

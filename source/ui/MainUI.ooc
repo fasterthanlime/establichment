@@ -80,6 +80,7 @@ MainUI: class {
     statusPass := Pass new(this, "status") // various info
     levelTitle: LabelSprite
     dateLabel: LabelSprite
+    deathLabel: LabelSprite
     cashLabel: LabelSprite
     objectiveLabel: LabelSprite
     homelessLabel: LabelSprite
@@ -104,8 +105,13 @@ MainUI: class {
         levelTitle fontSize = 30.0
         statusPass addSprite(levelTitle)
 
+        deathLabel = LabelSprite new(vec2(240, 35), "0 deaths")
+        deathLabel color set!(1.0, 0.2, 0.2)
+        deathLabel fontSize = 30.0
+        statusPass addSprite(deathLabel)
+
         dateLabel = LabelSprite new(vec2(display getWidth() - 100, 70), "Day 0")
-        dateLabel color set!(1.0, 1.0, 1.0)
+        dateLabel color set!(0.4, 0.4, 1.0)
         dateLabel centered = true
         dateLabel fontSize = 30.0
         statusPass addSprite(dateLabel)
@@ -113,7 +119,7 @@ MainUI: class {
         cashLabel = LabelSprite new(vec2(display getWidth() - 100, 30), "0 CHF")
         cashLabel centered = true
         cashLabel fontSize = 30.0
-        cashLabel color set!(1.0, 1.0, 1.0)
+        cashLabel color set!(0.2, 1.0, 0.2)
         statusPass addSprite(cashLabel)
 
         homelessLabel = LabelSprite new(vec2(display getWidth() - 350, 30), "0 / ? homeless")
