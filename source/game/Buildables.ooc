@@ -81,7 +81,7 @@ Building: class extends Buildable {
     places: Int
 
     tenants := 0
-    glowingBulb: EllipseSprite
+    glowingBulb: RectSprite
 
     slurpTime := 10
     leaseTime := 150
@@ -111,11 +111,12 @@ Building: class extends Buildable {
     }
 
     loadSprite: func {
-        offset := vec2(level terrain tileWidth, -65)
+        offset := vec2(level terrain tileWidth, -35)
 
-        glowingBulb = EllipseSprite new(offset)
+        glowingBulb = RectSprite new(offset)
+        glowingBulb size set!(50, 0)
         glowingBulb filled = true
-        glowingBulb alpha = 1.0
+        glowingBulb color set!(0.9, 0.9, 0.1)
         sprite add(glowingBulb)
 
         sprite add(loadIsoImage("assets/png/building.png"))
@@ -125,8 +126,8 @@ Building: class extends Buildable {
         percentage := tenants * 100 / places
         radius := level terrain tileWidth * (0.5 + percentage / 200.0)
 
-        glowingBulb radius = radius
-        glowingBulb color set!(percentage / 200.0, percentage / 200.0, 0)
+        glowingBulb size y = radius
+        glowingBulb pos y = - radius / 2 + 10
     }
 
     logic: func {
@@ -221,7 +222,7 @@ Tree: class extends Buildable {
 
 
 /*
- * LAVA !
+ * LAVA ! (unfinished :( )
  */
 
 Lava: class extends Buildable {

@@ -43,19 +43,22 @@ LevelLoader: class extends Loader {
 
     loadStGall: func (level: Level) {
         level maxHomeless = 80
+        level player cash = 500
         level objective = "Earn 3000 CHF"
         level winConditions add(EarnAtLeast new(3000))
     }
 
     loadZuerich: func (level: Level) {
         level maxHomeless = 40
+        level player cash = 300
         level objective = "Build 5 towers"
         level winConditions add(HaveNThings new(5, Tower))
     }
 
     loadRomandy: func (level: Level) {
         level maxHomeless = 20
-        level objective = "Don't let any homeless die"
+        level player cash = 200
+        level objective = "Don't let any homeless die (unfinished level :()"
         level winConditions add(ZeroDeath new())
     }
 

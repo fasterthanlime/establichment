@@ -148,7 +148,10 @@ Item: class {
 
     onPress: Func
 
-    init: func (=name, =onPress) {
+    ls: LabelSprite
+    is: ImageSprite
+
+    init: func (=name, =icon, =onPress) {
         // FIXME: static initialization workaround suxxorz
         if (colors empty?()) {
             colors add(s1 := ItemState IDLE,    vec3(0.5, 0.5, 0.5))
@@ -170,14 +173,24 @@ Item: class {
         rect2 filled = false
         sprite add(rect2)
 
-        ls := LabelSprite new(vec2(0, 0), name)
-        ls color set!(0.2, 0.2, 0.2)
+        ls = LabelSprite new(vec2(0, 0), name)
+        ls color set!(0.1, 0.1, 0.1)
         ls centered = true
         sprite add(ls)
+
+        if (icon) {
+            is = ImageSprite new(vec2(0, 0), icon)
+            is scale set!(0.5, 0.5)
+            is pos set!(- is width / 4, - is height / 4)
+            sprite add(is)
+        }
     }
 
     setSize: func (=width, =height) {
         rect  size set!(width, height) 
+        if (icon)  {
+            ls pos y = height / 2 - 15
+        }
     }
 
     hasPressed := false

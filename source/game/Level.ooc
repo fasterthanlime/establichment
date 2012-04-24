@@ -274,13 +274,14 @@ Level: class {
             case "tree" =>
                 dropBuildable(Tree new(this))
             case => 
-                    ui boombox play(ui nopeSound)
+                ui boombox play(ui nopeSound)
         }
     }
 
     dropBuildable: func (buildable: Buildable) {
         if (player cash <= buildable cost) {
             ui boombox play(ui nopeSound)
+            buildable destroy()
         } else {
             drp := Dropper new(this, |pos|
                 buildable pos set!(pos)

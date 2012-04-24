@@ -180,20 +180,20 @@ MainUI: class {
     }
 
     createLeftToolbar: func -> Toolbar {
-        tb := Toolbar new(this, vec2(160, 70), Placement WEST)
-        tb add(Item new("Restart level", || engine reload()))
-        tb add(Item new("Previous level", || engine jumpLevel(-1) ))
-        tb add(Item new("Next level",     || engine jumpLevel(1) ))
-        tb add(Item new("Exit", || exit(0)))
+        tb := Toolbar new(this, vec2(180, 70), Placement WEST)
+        tb add(Item new("Restart level",  null, || engine reload()))
+        tb add(Item new("Previous level", null, || engine jumpLevel(-1) ))
+        tb add(Item new("Next level",    null, || engine jumpLevel(1) ))
+        tb add(Item new("Exit", null, || exit(0)))
         tb
     }
 
     createRightToolbar: func -> Toolbar {
         tb := Toolbar new(this, vec2(140, 140), Placement EAST)
-        tb add(Item new("Tree",      || engine level drop("tree")))
-        tb add(Item new("House",     || engine level drop("house")))
-        tb add(Item new("Building",  || engine level drop("building")))
-        tb add(Item new("Tower",     || engine level drop("tower")))
+        tb add(Item new("100 CHF",     "assets/png/tree.png", || engine level drop("tree")))
+        tb add(Item new("250 CHF",    "assets/png/house.png",   || engine level drop("house")))
+        tb add(Item new("600 CHF",  "assets/png/building.png",  || engine level drop("building")))
+        tb add(Item new("1300 CHF",      "assets/png/phaser.png", || engine level drop("tower")))
         tb
     }
 
