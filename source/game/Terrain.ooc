@@ -225,13 +225,13 @@ Terrain: class {
         xLine color set!(1, 0, 0)
         xLine start set!(base)
         xLine end   set!(base add(xAxis))
-        pass addSprite(xLine)
+        //pass addSprite(xLine)
 
         yLine := LineSprite new()
         yLine color set!(0, 1, 0)
         yLine start set!(base)
         yLine end   set!(base add(yAxis))
-        pass addSprite(yLine)
+        //pass addSprite(yLine)
     }
 
     update: func {

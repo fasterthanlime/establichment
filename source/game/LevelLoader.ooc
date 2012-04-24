@@ -5,7 +5,7 @@ import ldkit/Loader
 import deadlogger/Log
 
 // game deps
-import Level, Engine
+import Level, Engine, Player
 
 LevelLoader: class extends Loader {
 
@@ -33,19 +33,20 @@ LevelLoader: class extends Loader {
     }
 
     loadTicino: func (level: Level) {
-
+        level maxHomeless = 100
+        level player cash = 1000
     }
 
     loadStGall: func (level: Level) {
-
+        level maxHomeless = 80
     }
 
     loadZuerich: func (level: Level) {
-
+        level maxHomeless = 40
     }
 
     loadRomandy: func (level: Level) {
-
+        level maxHomeless = 20
     }
 
 }

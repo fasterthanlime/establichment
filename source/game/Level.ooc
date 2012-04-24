@@ -119,6 +119,14 @@ Thing: class {
 
 }
 
+Condition: class {
+
+    isTrue: func -> Bool {
+        false // override
+    }
+
+}
+
 /*
  * THE LEVEL CLASS. 
  */
@@ -129,6 +137,9 @@ Level: class {
     engine: Engine
     date := GameDate new()
     maxHomeless := 100
+
+    lossConditions := ArrayList<Condition> new()
+    winConditions := ArrayList<Condition> new()
 
     terrain: Terrain
 
@@ -191,10 +202,32 @@ Level: class {
         things each (|t| t update())
         player update(date)
 
+        homelessCount := countHomeless()
+
         ui homelessLabel setText("%d / %d homeless" format(
-            countHomeless(),
+            homelessCount,
             maxHomeless
         ))
+    
+        for (lc in lossConditions) {
+            if (lc isTrue()) {
+                ui flash("The homeless have won!")
+                in(30, || engine reload())
+            }
+        }
+
+        for (wc in winConditions) {
+            if (wc isTrue()) {
+                ui flash("You win!")
+                in(30, || engine jumpLevel(1))
+            }
+        }
+    }
+
+    in: func (length: Int, cb: Func) {
+        th := Thing new()
+        th in(length, cb)
+        add(th)
     }
 
     drop: func (type: String) {
